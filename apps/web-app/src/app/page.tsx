@@ -1,3 +1,20 @@
+import {ICatalog} from "src/types/catalog";
+
 export default async function IndexPage() {
-  return <div>Hello world</div>;
+  const catalogsResponse = await fetch("https://twworkspace--vtexsgdemostore.myvtex.com/_v/catalogs/3");
+  const catalogs:ICatalog[] = await catalogsResponse.json();
+
+  return (
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        {catalogs.map(catalog => (
+            <div key={catalog.id} style={{ flex: '1', alignSelf: 'flex-start' }}>
+              <img src="https://raw.githubusercontent.com/mswjs/msw/HEAD/media/msw-logo.svg" alt="Microwave oven navigation" width="100"
+              height="100" io-loaded="true" />
+              <div>
+                {catalog.name}
+              </div>
+            </div>
+        ))}
+      </div>
+  );
 }
