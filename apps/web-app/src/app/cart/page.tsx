@@ -6,16 +6,17 @@ export default async function Page() {
     const cartProductSkus = product.items;
 
     return (
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center',
-            alignItems: 'center', borderBottom: '1px solid #ccc', width: '50vw', marginLeft: '20px'}}>
+        <div style={{display: 'flex', flexDirection: 'column',
+            width: '50vw'}}>
             {cartProductSkus.map(cartItem => (
-                <div key={cartItem.id} style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <div key={cartItem.id} style={{display: 'flex', flexDirection: 'row',
+                     borderBottom: '1px solid #ccc', alignItems: 'center', marginBottom: '50px',paddingBottom: '10px'}}>
                     <img src={cartItem.imageUrl}
                          alt={cartItem.name} width="100" height="100"/>
                     <div style={{margin: '0 20px'}}>
                         {cartItem.name}
                     </div>
-                    <div style={{fontWeight: 500}}>
+                    <div style={{fontWeight: 500, margin: 'auto'}}>
                         R${cartItem.price}
                     </div>
                 </div>
