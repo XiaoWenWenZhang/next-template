@@ -6,9 +6,15 @@ export default async function IndexPage() {
     const catalogs: ICatalog[] = await catalogsResponse.json();
 
     return (
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap'
+        }}>
             {catalogs.map(catalog => (
-                <div key={catalog.id} style={{flex: '1', alignSelf: 'flex-start'}}>
+                <div key={catalog.id} style={{flex: '1', alignSelf: 'flex-start', padding: '80px'}}>
                     <Link
                         href={`/appliances/${catalog.name}`}
                     >
