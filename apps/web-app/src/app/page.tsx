@@ -20,6 +20,15 @@ export default async function IndexPage() {
                     </div>
                 </div>
             ))}
+
+            <div>
+                <Link
+                    href={`/cart`}
+                >
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfY8u3sBhup4W2PV5O82hsqHk_gqfmGO6ZNg&usqp=CAU"
+                         alt="Microwave oven navigation" width="100" height="100" io-loaded="true"/>
+                </Link>
+            </div>
         </div>
     );
 }
