@@ -13,6 +13,7 @@
   "dependencies": {
     "@faststore/api": "^1.12.42",
     "@faststore/sdk": "^1.12.37",
+    "@faststore/ui": "^2.1.9",
     "@vtex/client-cms": "^0.2.14",
     "next": "latest",
     "next-seo": "^6.0.0",
