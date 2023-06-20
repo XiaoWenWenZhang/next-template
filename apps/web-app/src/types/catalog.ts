@@ -4,4 +4,6 @@ export interface ICatalog {
     url: string;
     Title: string;
     MetaTagDescription: string;
+    children: ICatalog[];
+    hasChildren: boolean;
 }
