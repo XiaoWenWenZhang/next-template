@@ -46,25 +46,27 @@ export default function Head() {
                         Where To Buy
                     </div>
                 </div>
-                <div className='main-navigation'
-                     style={{
-                         display: 'flex',
-                         alignItems: 'center',
-                         height: '85px',
-                         padding: '8px 40px',
-                         backgroundColor: '#fff'
-                     }}>
-                    <div className="navigation-logo">
-                        <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
-                             alt="Electrolux Thailand" width="144" height="35"/>
+                <div className='main-navigation'>
+                    <div className='main-navigation-item'
+                         style={{
+                             display: 'flex',
+                             alignItems: 'center',
+                             height: '85px',
+                             padding: '8px 40px',
+                             backgroundColor: '#fff'
+                         }}>
+                        <div className="navigation-logo">
+                            <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
+                                 alt="Electrolux Thailand" width="144" height="35"/>
+                        </div>
+                        <div style={{margin: '0 20px'}}>
+                            Appliances
+                        </div>
+                        <div className='submenu-navigation'>
+                            Block
+                        </div>
                     </div>
-                    <div style={{margin: '0 20px'}}>
-                        Appliances
-                    </div>
-                    <div>Services</div>
-                </div>
-                <div className="submenu-navigation">
-                    hidden block
+
                 </div>
             </nav>
             <meta name="description" content="test"/>

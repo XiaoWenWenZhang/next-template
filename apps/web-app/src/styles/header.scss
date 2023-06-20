@@ -1,3 +1,11 @@
+.main-navigation {
+  position: relative;
+}
+
+.main-navigation-item:hover .submenu-navigation {
+  display: flex;
+}
+
 .submenu-navigation {
   background-color: aqua;
   position: absolute;
