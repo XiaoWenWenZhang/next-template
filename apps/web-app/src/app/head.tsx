@@ -1,11 +1,22 @@
 'use client'
 
+import {useContext} from "react";
 import "../styles/header.scss"
+import {CatalogsContext} from "src/catalogs.context";
+import {ICatalog} from "src/types/catalog";
+import {Icon} from "@faststore/ui";
 import Link from "next/link";
-import { Icon } from '@faststore/ui'
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
 
 export default function Head() {
+    const {catalogs} = useContext(CatalogsContext);
+    let secondCatalogs: ICatalog[] = [];
+    catalogs.forEach(catalog => {
+        if (catalog.hasChildren) {
+            secondCatalogs.push(...catalog.children);
+        }
+    })
+
     return (
         <header style={{
             position: 'relative',
@@ -79,7 +90,21 @@ export default function Head() {
                             Appliances
                         </div>
                         <div className='submenu-navigation'>
-                            Block
+                            {catalogs.map(catalog => (
+                                <>
+                                    <div key={catalog.id} className='catalog-item'>
+                                        <Icon name="ShoppingCart"/>
+                                        {catalog.name}
+                                        {catalog.hasChildren ? catalog.children.map(secondCatalog =>
+                                            <Link
+                                                href={`/appliances/${catalog.name}`}
+                                            >
+                                                {secondCatalog.name}
+                                            </Link>
+                                        ) : null}
+                                    </div>
+                                </>
+                            ))}
                         </div>
                     </div>
 
