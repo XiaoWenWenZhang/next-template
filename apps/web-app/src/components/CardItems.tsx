@@ -11,13 +11,44 @@ import {
 } from '@faststore/ui'
 import {ICartProductSkus} from "src/types/cart";
 import {MinusIcon, PlusIcon} from "@faststore/ui/dist/molecules/QuantitySelector/stories/assets/Icons";
+import {useState} from "react";
 
 interface CardItemsProps {
     cartProductSkus: ICartProductSkus[],
 }
+
+interface CardItemQuantity {
+    id: string,
+    quantity: number,
+}
+
+const MAX_QUANTITY = 10
+const MIN_QUANTITY = 1
 export const CardItems = ({
                               cartProductSkus
                           }: CardItemsProps) => {
+    const [quantity, setQuantity] = useState(MIN_QUANTITY)
+
+    const validateQuantityRange = (quantity) => {
+        return Math.min(Math.max(quantity, MIN_QUANTITY), MAX_QUANTITY);
+    }
+
+    const increase = (id) => {
+        setQuantity((cur) => validateQuantityRange(cur + 1))
+    }
+
+    const decrease = () => {
+        setQuantity((cur) => validateQuantityRange(cur - 1))
+    }
+
+    const isLeftDisabled = () => {
+        return quantity === MIN_QUANTITY
+    }
+
+    const isRightDisabled = () => {
+        return quantity === MAX_QUANTITY
+    }
+
     return (
         <div
         >
@@ -36,34 +67,35 @@ export const CardItems = ({
                             <ProductCardContent>
                                 <h3 style={{margin: '10px 20px', fontWeight: 500, color: 'rgb(1, 30, 65)'}}>{cartItem.name}</h3>
                             </ProductCardContent>
-                            <QuantitySelector
-                                quantity={1}
-                                leftButtonProps={{
-                                    onClick: () => {},
-                                    disabled: true,
-                                    icon: <MinusIcon color={'#2953B2'} />,
-                                }}
-                                rightButtonProps={{
-                                    onClick: () => {},
-                                    disabled: true,
-                                    icon: <PlusIcon color={'#2953B2'} />,
-                                }}
-                                inputProps={{
-                                    onChange: () =>{},
-                                    readOnly: false,
-                                }}
-                            />
+                                <QuantitySelector
+                                    style={{display: "flex"}}
+                                    quantity={quantity}
+                                    leftButtonProps={{
+                                        onClick: decrease,
+                                        disabled: isLeftDisabled(),
+                                        icon: <MinusIcon color={'#2953B2'} />,
+                                    }}
+                                    rightButtonProps={{
+                                        onClick: () => {increase(cartItem.id)},
+                                        disabled: isRightDisabled(),
+                                        icon: <PlusIcon color={'#2953B2'} />,
+                                    }}
+                                    inputProps={{
+                                        onChange: () =>{},
+                                        readOnly: false,
+                                    }}
+                                />
                         </div>
 
                     </ProductCard>
                     <div>
                         <Price
-                            value={9999999.9}
+                            value={cartItem.price}
                             variant="listing"
                             style={{ textDecoration: 'line-through', marginRight: '15px' }}
                         />
                         <Price value={cartItem.price} variant="selling" />
-                        <Badge>15% OFF</Badge>
+                        <Badge>0% OFF {cartItem.quantity}</Badge>
                     </div>
                 </div>
 

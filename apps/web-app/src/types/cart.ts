@@ -8,4 +8,5 @@ export interface ICartProductSkus {
     imageUrl: string;
     name: string;
     id: string;
+    quantity: number;
 }

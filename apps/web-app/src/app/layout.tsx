@@ -1,12 +1,17 @@
-import Head from "src/app/head";
 import {CatalogsContextProvider} from "src/catalogs.context";
+import {Head} from "src/components/Head";
+import {ICart} from "src/types/cart";
 
-export default function Root({children}: { children: React.ReactNode }) {
+export default async function Root({children}: { children: React.ReactNode }) {
+    const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`);
+    const product: ICart = await cartResponse.json();
+    const cartProductSkus = product.items;
+
     return (
         <html>
         <body>
         <CatalogsContextProvider>
-            <Head/>
+            <Head count={cartProductSkus.length}/>
             <div style={{
                 paddingTop: '100px'
             }}>

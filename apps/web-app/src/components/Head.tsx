@@ -2,10 +2,10 @@
 
 import "../styles/header.scss"
 import Link from "next/link";
-import { Icon } from '@faststore/ui'
+import {Icon} from '@faststore/ui'
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
 
-export default function Head() {
+export const Head = ({count}) => {
     return (
         <header style={{
             position: 'relative',
@@ -58,7 +58,7 @@ export default function Head() {
                                 display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'}}
                             component={<ShoppingCart />}
                         />
-                        <div className="card-icon-count">2</div>
+                        <div className="card-icon-count">{count}</div>
                     </Link>
 
                 </div>
@@ -71,10 +71,10 @@ export default function Head() {
                              padding: '8px 40px',
                              backgroundColor: '#fff'
                          }}>
-                        <div className="navigation-logo">
+                        <Link className="navigation-logo" href={"/"}>
                             <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
                                  alt="Electrolux Thailand" width="144" height="35"/>
-                        </div>
+                        </Link>
                         <div style={{margin: '0 20px'}}>
                             Appliances
                         </div>
