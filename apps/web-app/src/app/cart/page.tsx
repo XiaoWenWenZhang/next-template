@@ -1,6 +1,6 @@
 'use client'
 
-import {ICart} from "src/types/cart";
+import {ICart, ICartProductSkus} from "src/types/cart";
 import "../../styles/header.scss"
 import {
     Badge,
@@ -13,13 +13,30 @@ import {
     QuantitySelector
 } from '@faststore/ui'
 import {MinusIcon, PlusIcon} from "@faststore/ui/dist/molecules/QuantitySelector/stories/assets/Icons";
+import {useEffect, useState} from "react";
 
 export default async function Page() {
-    const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`);
-    const product: ICart = await cartResponse.json();
-    const cartProductSkus = product.items;
+    const [cartProductSkus, setCartProductSkus] = useState<ICartProductSkus[]>([]);
+    const fetchData = async () => {
+        try {
+            const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`);
+            const product: ICart = await cartResponse.json();
+            const cartProductSkus = product.items;
+            setCartProductSkus(cartProductSkus);
+        } catch (e) {
+            console.log(e)
+        }
 
+    }
 
+    useEffect(() => {
+        fetchData();
+        console.log(cartProductSkus)
+    }, [cartProductSkus])
+
+    if (!cartProductSkus) {
+        return <div>Loading...</div>
+    }
 
     return (
         <div style={{display: 'flex', flexDirection: 'column',
@@ -44,7 +61,7 @@ export default async function Page() {
                                 leftButtonProps={{
                                     onClick: () => {},
                                     disabled: true,
-                                    icon: <MinusIcon color={'#2953B2'} className="minus_icon" />,
+                                    icon: <MinusIcon color={'#2953B2'} />,
                                 }}
                                 rightButtonProps={{
                                     onClick: () => {},

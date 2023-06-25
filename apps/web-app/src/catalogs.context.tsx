@@ -5,7 +5,7 @@ import {ICatalog} from "src/types/catalog";
 
 export const CatalogsContext = createContext<{ catalogs: ICatalog[] }>({catalogs: []});
 
-export const CatalogsContextProvider = async ({children}: { children: React.ReactNode }) => {
+export const CatalogsContextProvider =  ({children}: { children: React.ReactNode }) => {
     // Todo: Remove the fixed response
     const [response, setResponse] = useState<ICatalog[]>([
         {

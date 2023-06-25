@@ -3,7 +3,7 @@ export interface ICart {
     items: ICartProductSkus[];
 }
 
-interface ICartProductSkus {
+export interface ICartProductSkus {
     price: number;
     imageUrl: string;
     name: string;
