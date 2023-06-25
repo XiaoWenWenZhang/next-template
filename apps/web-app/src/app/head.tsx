@@ -2,7 +2,7 @@
 
 import "../styles/header.scss"
 import Link from "next/link";
-import { Icon } from '@faststore/ui'
+import {Icon} from '@faststore/ui'
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
 
 export default function Head() {
@@ -52,7 +52,7 @@ export default function Head() {
                     </div>
 
                     <Link
-                        href={`/cart`}>
+                        href={`/cart`} style={{position: "relative"}}>
                         <Icon
                             style={{width: '45px', height: '45px',
                                 display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'}}

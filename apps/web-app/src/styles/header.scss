@@ -17,10 +17,21 @@
   height: auto;
   padding: 10px 30px;
 }
-.minus_icon {
-  &:before {
-    transform: scale(0.5);
-    left: 50%;
-    top: 50%;
-  }
+
+.card-icon-count {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 20px;
+  left: 24px;
+  border-radius: 50%;
+  background: #ff3a30;
+  color: #fff;
+  overflow: hidden;
+  font-weight: 600;
+  font-size: .75rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
