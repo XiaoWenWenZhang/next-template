@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
@@ -19,7 +21,24 @@ const nextConfig = {
         issuer: /\.[jt]sx?$/,
         resourceQuery: { not: /url/ }, // exclude if *.svg?url
         use: ["@svgr/webpack"],
-      }
+      },
+        {
+            test: /\.(scss|sass)$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                {
+                    loader: 'sass-loader',
+                    options: {
+                        sassOptions: {
+                            includePaths: [
+                                path.resolve(__dirname, 'node_modules'),
+                            ],
+                        },
+                    },
+                },
+            ],
+        }
     );
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.

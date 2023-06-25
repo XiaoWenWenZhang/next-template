@@ -17,3 +17,10 @@
   height: auto;
   padding: 10px 30px;
 }
+.minus_icon {
+  &:before {
+    transform: scale(0.5);
+    left: 50%;
+    top: 50%;
+  }
+}

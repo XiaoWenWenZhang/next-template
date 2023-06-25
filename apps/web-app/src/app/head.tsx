@@ -1,4 +1,9 @@
+'use client'
+
 import "../styles/header.scss"
+import Link from "next/link";
+import { Icon } from '@faststore/ui'
+import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
 
 export default function Head() {
     return (
@@ -45,6 +50,16 @@ export default function Head() {
                         }}></em>
                         Where To Buy
                     </div>
+
+                    <Link
+                        href={`/cart`}>
+                        <Icon
+                            style={{width: '45px', height: '45px',
+                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'}}
+                            component={<ShoppingCart />}
+                        />
+                    </Link>
+
                 </div>
                 <div className='main-navigation'>
                     <div className='main-navigation-item'

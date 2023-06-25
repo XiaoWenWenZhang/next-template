@@ -1,5 +1,4 @@
 'use client'
-
 import Link from "next/link";
 import {useContext} from "react";
 import {CatalogsContext} from "src/catalogs.context";
@@ -36,15 +35,6 @@ export default async function IndexPage() {
                 </div>
             ))}
 
-            <div>
-                <Link
-                    href={`/cart`}
-                >
-                    <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfY8u3sBhup4W2PV5O82hsqHk_gqfmGO6ZNg&usqp=CAU"
-                        alt="Microwave oven navigation" width="45" height="45" io-loaded="true"/>
-                </Link>
-            </div>
         </div>
     );
 }
