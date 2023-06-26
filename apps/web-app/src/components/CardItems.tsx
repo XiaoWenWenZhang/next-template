@@ -24,37 +24,57 @@ interface CardItemQuantity {
 
 const MAX_QUANTITY = 10
 const MIN_QUANTITY = 1
+
 export const CardItems = ({
                               cartProductSkus
                           }: CardItemsProps) => {
-    const [quantity, setQuantity] = useState(MIN_QUANTITY)
+    const initCardItemQuantity = cartProductSkus.map((cardItem) => ({id: cardItem.id, quantity: cardItem.quantity}))
+    const [quantity, setQuantity] = useState<CardItemQuantity[]>(initCardItemQuantity)
 
     const validateQuantityRange = (quantity) => {
         return Math.min(Math.max(quantity, MIN_QUANTITY), MAX_QUANTITY);
     }
 
     const increase = (id) => {
-        setQuantity((cur) => validateQuantityRange(cur + 1))
+        let cardItemQuantities = quantity.find(item => item.id == id);
+        let otherCardItemQuantities = quantity.filter(item => item.id != id) || [];
+        cardItemQuantities.quantity = validateQuantityRange(cardItemQuantities.quantity + 1)
+        setQuantity([...otherCardItemQuantities, cardItemQuantities])
     }
 
-    const decrease = () => {
-        setQuantity((cur) => validateQuantityRange(cur - 1))
+
+    const decrease = (id) => {
+        let cardItemQuantities = quantity.find(item => item.id == id);
+        let otherCardItemQuantities = quantity.filter(item => item.id != id) || [];
+        cardItemQuantities.quantity = validateQuantityRange(cardItemQuantities.quantity - 1)
+
+        setQuantity([...otherCardItemQuantities, cardItemQuantities])
+
     }
 
-    const isLeftDisabled = () => {
-        return quantity === MIN_QUANTITY
+    const isLeftDisabled = (id) => {
+        let cardItemQuantities = quantity.find(item => item.id == id);
+        return cardItemQuantities.quantity === MIN_QUANTITY
     }
 
-    const isRightDisabled = () => {
-        return quantity === MAX_QUANTITY
+    const isRightDisabled = (id) => {
+        let cardItemQuantities = quantity.find(item => item.id == id);
+        return cardItemQuantities.quantity === MAX_QUANTITY
     }
 
     return (
         <div
         >
             {cartProductSkus.map(cartItem => (
-                <div key={cartItem.id} style={{display: 'flex', flexDirection: 'row',
-                    borderBottom: '1px solid #ccc', alignItems: 'center', marginBottom: '50px',paddingBottom: '10px',paddingTop: '30px'}}>
+                <div key={cartItem.id} style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    borderBottom: '1px solid #ccc',
+                    alignItems: 'center',
+                    marginBottom: '50px',
+                    paddingBottom: '10px',
+                    paddingTop: '30px'
+                }}>
 
                     <ProductCard style={{display: 'flex', flexDirection: 'row'}}>
                         <ProductCardImage>
@@ -65,26 +85,35 @@ export const CardItems = ({
                         </ProductCardImage>
                         <div style={{marginRight: '250px'}}>
                             <ProductCardContent>
-                                <h3 style={{margin: '10px 20px', fontWeight: 500, color: 'rgb(1, 30, 65)'}}>{cartItem.name}</h3>
+                                <h3 style={{
+                                    margin: '10px 20px',
+                                    fontWeight: 500,
+                                    color: 'rgb(1, 30, 65)'
+                                }}>{cartItem.name}</h3>
                             </ProductCardContent>
-                                <QuantitySelector
-                                    style={{display: "flex"}}
-                                    quantity={quantity}
-                                    leftButtonProps={{
-                                        onClick: decrease,
-                                        disabled: isLeftDisabled(),
-                                        icon: <MinusIcon color={'#2953B2'} />,
-                                    }}
-                                    rightButtonProps={{
-                                        onClick: () => {increase(cartItem.id)},
-                                        disabled: isRightDisabled(),
-                                        icon: <PlusIcon color={'#2953B2'} />,
-                                    }}
-                                    inputProps={{
-                                        onChange: () =>{},
-                                        readOnly: false,
-                                    }}
-                                />
+                            <QuantitySelector
+                                style={{display: "flex"}}
+                                quantity={quantity.find(item => item.id == cartItem.id)?.quantity ?? 1}
+                                leftButtonProps={{
+                                    onClick: () => {
+                                        decrease(cartItem.id)
+                                    },
+                                    disabled: isLeftDisabled(cartItem.id),
+                                    icon: <MinusIcon color={'#2953B2'}/>,
+                                }}
+                                rightButtonProps={{
+                                    onClick: () => {
+                                        increase(cartItem.id)
+                                    },
+                                    disabled: isRightDisabled(cartItem.id),
+                                    icon: <PlusIcon color={'#2953B2'}/>,
+                                }}
+                                inputProps={{
+                                    onChange: () => {
+                                    },
+                                    readOnly: false,
+                                }}
+                            />
                         </div>
 
                     </ProductCard>
@@ -92,9 +121,9 @@ export const CardItems = ({
                         <Price
                             value={cartItem.price}
                             variant="listing"
-                            style={{ textDecoration: 'line-through', marginRight: '15px' }}
+                            style={{textDecoration: 'line-through', marginRight: '15px'}}
                         />
-                        <Price value={cartItem.price} variant="selling" />
+                        <Price value={cartItem.price} variant="selling"/>
                         <Badge>0% OFF {cartItem.quantity}</Badge>
                     </div>
                 </div>
