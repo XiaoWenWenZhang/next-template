@@ -22,7 +22,7 @@ interface CardItemQuantity {
     quantity: number,
 }
 
-const MAX_QUANTITY = 10
+const MAX_QUANTITY = 100
 const MIN_QUANTITY = 1
 
 export const CardItems = ({
@@ -50,6 +50,15 @@ export const CardItems = ({
 
         setQuantity([...otherCardItemQuantities, cardItemQuantities])
 
+    }
+
+    const validateInput = ( e,id) => {
+        let cardItemQuantities = quantity.find(item => item.id == id);
+        let otherCardItemQuantities = quantity.filter(item => item.id != id) || [];
+        if (!Number.isNaN(Number(e.target.value))) {
+            cardItemQuantities.quantity = validateQuantityRange(Number(e.target.value))
+            setQuantity([...otherCardItemQuantities, cardItemQuantities])
+        }
     }
 
     const isLeftDisabled = (id) => {
@@ -109,8 +118,7 @@ export const CardItems = ({
                                     icon: <PlusIcon color={'#2953B2'}/>,
                                 }}
                                 inputProps={{
-                                    onChange: () => {
-                                    },
+                                    onChange: (e) => {validateInput(e,cartItem.id)},
                                     readOnly: false,
                                 }}
                             />
