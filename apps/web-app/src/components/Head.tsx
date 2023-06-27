@@ -28,7 +28,7 @@ export const Head = () => {
     }
 
     useEffect(() => {
-        // fetchCount()
+        fetchCount()
         emitter.on('addToCart', fetchCount)
         return () => {
             emitter.off('addToCart', fetchCount)

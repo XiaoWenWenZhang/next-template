@@ -7,11 +7,12 @@ import {
     ProductCardActions,
     ProductCardContent,
     ProductCardImage,
-    QuantitySelector
+    QuantitySelector,
 } from '@faststore/ui'
 import {ICartProductSkus} from "src/types/cart";
 import {MinusIcon, PlusIcon} from "@faststore/ui/dist/molecules/QuantitySelector/stories/assets/Icons";
 import {useState} from "react";
+import Link from "next/link";
 
 interface CardItemsProps {
     cartProductSkus: ICartProductSkus[],
@@ -138,7 +139,9 @@ export const CardItems = ({
 
             ))}
             <ProductCardActions>
-                <Button onClick={() => null}>PROCEED TO SECURE CHECKOUT</Button>
+                <Link href='/checkout'>
+                    <Button>PROCEED TO SECURE CHECKOUT</Button>
+                </Link>
             </ProductCardActions>
         </div>
     );

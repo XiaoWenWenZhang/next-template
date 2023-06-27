@@ -9,16 +9,11 @@ export const AddToCart = ({item}) => {
     const addItemToCart = (item) => {
         // emitter.emit('addToCart')
 
-        console.log('add')
         const body = JSON.stringify({
-            orderItems: [
-                {
-                    quantity: item.quantity,
+                    quantity: 1,
                     seller: "1",
-                    id: item.id,
+                    id: item.productId,
                     index: 0,
-                }
-            ]
         })
         fetch(targetPath, {method: 'POST', body}).then((res) => res.json()).then(data => {
             console.log(data)
