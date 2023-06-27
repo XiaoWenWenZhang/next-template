@@ -19,7 +19,12 @@ export const Head = () => {
         const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`,
             {cache: "no-cache"});
         const product: ICart = await cartResponse.json();
-        setCount(product.items.length);
+        const quantityArray = []
+        product.items.forEach(item => {
+            quantityArray.push(item.quantity)
+        });
+        let sumQuantity = quantityArray.reduce((total, item) => total + item);
+        setCount(sumQuantity);
     }
 
     useEffect(() => {
