@@ -132,7 +132,7 @@ export const CardItems = ({
                             style={{textDecoration: 'line-through', marginRight: '15px'}}
                         />
                         <Price value={cartItem.price} variant="selling"/>
-                        <Badge>0% OFF {cartItem.quantity}</Badge>
+                        <Badge>0% OFF {cartItem.id}</Badge>
                     </div>
                 </div>
 
