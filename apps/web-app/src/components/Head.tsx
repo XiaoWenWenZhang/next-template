@@ -4,8 +4,12 @@ import "../styles/header.scss"
 import Link from "next/link";
 import {Icon} from '@faststore/ui'
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
+import {useContext} from "react";
+import {CatalogsContext} from "src/catalogs.context";
 
 export const Head = ({count}) => {
+    const {catalogs} = useContext(CatalogsContext);
+
     return (
         <header style={{
             position: 'relative',
@@ -54,9 +58,11 @@ export const Head = ({count}) => {
                     <Link
                         href={`/cart`} style={{position: "relative"}}>
                         <Icon
-                            style={{width: '45px', height: '45px',
-                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'}}
-                            component={<ShoppingCart />}
+                            style={{
+                                width: '45px', height: '45px',
+                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'
+                            }}
+                            component={<ShoppingCart/>}
                         />
                         <div className="card-icon-count">{count}</div>
                     </Link>
@@ -71,18 +77,29 @@ export const Head = ({count}) => {
                              padding: '8px 40px',
                              backgroundColor: '#fff'
                          }}>
-                        <Link className="navigation-logo" href={"/"}>
+                        <div className="navigation-logo">
                             <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
                                  alt="Electrolux Thailand" width="144" height="35"/>
-                        </Link>
+                        </div>
                         <div style={{margin: '0 20px'}}>
                             Appliances
                         </div>
                         <div className='submenu-navigation'>
-                            Block
+                            {catalogs.map(catalog => (
+                                <div key={catalog.id} className='catalog-item'>
+                                    <Icon name="ShoppingCart"/>
+                                    {catalog.name}
+                                    {catalog.hasChildren ? catalog.children.map(secondCatalog =>
+                                        <Link
+                                            href={`/appliances/${catalog.name}`}
+                                        >
+                                            {secondCatalog.name}
+                                        </Link>
+                                    ) : null}
+                                </div>
+                            ))}
                         </div>
                     </div>
-
                 </div>
             </nav>
             <meta name="description" content="test"/>
