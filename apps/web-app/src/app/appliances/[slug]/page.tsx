@@ -1,5 +1,5 @@
 import {IProduct} from "src/types/product";
-import {Button} from "ui-components";
+import {AddToCart} from "src/components/AddToCart";
 
 export default async function Page({params}: { params: { slug: string } }) {
     const productAndSKUIdResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/skus/4`);
@@ -14,7 +14,7 @@ export default async function Page({params}: { params: { slug: string } }) {
                     <div>
                         {product.name}
                     </div>
-                    <Button label={'add to cart'} size={'large'}></Button>
+                    <AddToCart item={product}/>
                 </div>
             ))}
         </div>

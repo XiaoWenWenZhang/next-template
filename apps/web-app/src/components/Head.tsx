@@ -4,11 +4,31 @@ import "../styles/header.scss"
 import Link from "next/link";
 import {Icon} from '@faststore/ui'
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
+import {ICart} from "src/types/cart";
+import {useEffect, useState} from "react";
 import {useContext} from "react";
 import {CatalogsContext} from "src/catalogs.context";
+import {emitter} from "src/utils/eventEmitter";
 
-export const Head = ({count}) => {
+export const Head = () => {
     const {catalogs} = useContext(CatalogsContext);
+
+    const [count, setCount] = useState(0);
+    const fetchCount = async () => {
+
+        const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`,
+            {cache: "no-cache"});
+        const product: ICart = await cartResponse.json();
+        setCount(product.items.length);
+    }
+
+    useEffect(() => {
+        // fetchCount()
+        emitter.on('addToCart', fetchCount)
+        return () => {
+            emitter.off('addToCart', fetchCount)
+        }
+    },[count])
 
     return (
         <header style={{
@@ -58,13 +78,11 @@ export const Head = ({count}) => {
                     <Link
                         href={`/cart`} style={{position: "relative"}}>
                         <Icon
-                            style={{
-                                width: '45px', height: '45px',
-                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'
-                            }}
-                            component={<ShoppingCart/>}
+                            style={{width: '45px', height: '45px',
+                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'}}
+                            component={<ShoppingCart />}
                         />
-                        <div className="card-icon-count">{count}</div>
+                        <div className={"card-icon-count"}>{count}</div>
                     </Link>
 
                 </div>
