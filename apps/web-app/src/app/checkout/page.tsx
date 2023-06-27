@@ -5,7 +5,6 @@ export default async function Page() {
     return (
         <div style={{display: 'flex', flexDirection: 'column',
             width: '50vw', marginLeft: '200px'}}>
-            hhhhhhh
             <CheckoutForm/>
         </div>
     );
