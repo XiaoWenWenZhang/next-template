@@ -4,7 +4,7 @@ import {useContext} from "react";
 import {CatalogsContext} from "src/catalogs.context";
 import {ICatalog} from "src/types/catalog";
 
-export default async function IndexPage() {
+export default function IndexPage() {
     const {catalogs} = useContext(CatalogsContext);
     let secondCatalogs: ICatalog[] = [];
     catalogs.forEach(catalog => {
