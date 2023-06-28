@@ -78,19 +78,6 @@ export const Head = () => {
                         }}></em>
                         Where To Buy
                     </div>
-
-                    <Link
-                        href={`/cart`} style={{position: "relative"}}>
-                        <Icon
-                            style={{
-                                width: '45px', height: '45px',
-                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'
-                            }}
-                            component={<ShoppingCart/>}
-                        />
-                        <div className={"card-icon-count"}>{count}</div>
-                    </Link>
-
                 </div>
                 <div className='main-navigation'>
                     <div className='main-navigation-item'
@@ -124,6 +111,18 @@ export const Head = () => {
                                 </div>
                             ))}
                         </div>
+
+                        <Link
+                            href={`/cart`} style={{position: "relative"}}>
+                            <Icon
+                                style={{
+                                    width: '45px', height: '45px',
+                                    display: 'flex', alignItems: 'center', color: '#011e41', marginLeft: '10px'
+                                }}
+                                component={<ShoppingCart/>}
+                            />
+                            <div className={"card-icon-count"}>{count}</div>
+                        </Link>
                     </div>
                 </div>
             </nav>
