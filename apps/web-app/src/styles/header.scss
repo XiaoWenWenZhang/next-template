@@ -70,6 +70,17 @@
   display: flex;
 }
 
+.quantity-selector {
+  input {
+    width: 32px;
+    text-align: center;
+  }
+  button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+}
 h1 {
   text-align: center;
 }

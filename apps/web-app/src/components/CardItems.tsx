@@ -93,16 +93,17 @@ export const CardItems = ({
                                 src={cartItem.imageUrl}
                             />
                         </ProductCardImage>
-                        <div style={{marginRight: '250px'}}>
+                        <div style={{marginRight: '50px'}}>
                             <ProductCardContent>
                                 <h3 style={{
                                     margin: '10px 20px',
-                                    fontWeight: 500,
+                                    fontWeight: 600,
                                     color: 'rgb(1, 30, 65)'
                                 }}>{cartItem.name}</h3>
                             </ProductCardContent>
                             <QuantitySelector
-                                style={{display: "flex"}}
+                                style={{display: "flex", margin: '10px 20px'}}
+                                className="quantity-selector"
                                 quantity={quantity.find(item => item.id == cartItem.id)?.quantity ?? 1}
                                 leftButtonProps={{
                                     onClick: () => {
@@ -126,7 +127,7 @@ export const CardItems = ({
                         </div>
 
                     </ProductCard>
-                    <div>
+                    <div style={{marginLeft: 'auto'}}>
                         <Price
                             value={cartItem.price}
                             variant="listing"

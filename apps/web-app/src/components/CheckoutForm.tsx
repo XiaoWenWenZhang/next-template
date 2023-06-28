@@ -36,7 +36,7 @@ const deliveryMockData = {
         }
     ]
 }
-const shippingMockData = {
+const paymentMockData = {
     payments: [
         {
             paymentSysytem: 1,
@@ -224,7 +224,7 @@ export const CheckoutForm = () => {
     }
 
     const addShippingDetails= () => {
-        const body = JSON.stringify(shippingMockData)
+        const body = JSON.stringify(paymentMockData)
         fetch(shippingPath, {method: 'POST', body}).then((res) => res.json()).then(data => {
             console.log(data)
         }).catch(err => {
