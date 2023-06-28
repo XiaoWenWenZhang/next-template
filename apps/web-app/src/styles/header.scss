@@ -2,22 +2,27 @@
   display: flex;
   position: relative;
   align-items: center;
+  padding: 0 40px;
 }
 
 .main-navigation-item__hover__appliances:hover ~ .submenu__appliances {
   display: flex;
 }
 
-.submenu__appliances:hover {
-  & {
-    display: flex;
-  }
+.main-navigation-item__hover__better-living:hover ~ .submenu__better-living {
+  display: flex;
 }
 
-.submenu__appliances {
-  background-color: #fff;
-  position: absolute;
+.submenu__appliances:hover,
+.submenu__better-living:hover {
+  display: flex;
+}
+
+
+.submenu__common {
   display: none;
+  position: absolute;
+  background-color: #fff;
   top: 100%;
   padding: 10px 30px;
   width: 100%;
@@ -32,6 +37,22 @@
   font-weight: 600;
   color: #011e41;
   height: 85px;
+}
+
+.batter-living-item {
+  max-width: 25%;
+  margin: 10px;
+}
+
+.batter-living-item-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.batter-living-item-title {
+  font-size: 1.625rem;
+  font-weight: 600;
+  margin: 14px 0 5px;
 }
 
 .catalog-item {

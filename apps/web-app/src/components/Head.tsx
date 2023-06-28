@@ -14,6 +14,16 @@ export const Head = () => {
 
     const [count, setCount] = useState(0);
     const menuList = ['Appliances', 'Services', 'Support', 'Promotions', 'Blog', 'Better living']
+    const betterLivingList = [
+        {
+            name: "Care",
+            imageUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/th-care-thumbnail.jpg?mode=crop&preset=large"
+        },
+        {
+            name: "Taste",
+            imageUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/th-make-it-last-thumbnail.jpg?mode=crop&preset=large"
+        }
+    ]
     const fetchCount = async () => {
         const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`,
             {cache: "no-cache"});
@@ -87,12 +97,12 @@ export const Head = () => {
                     {
                         menuList.map(menuItem => (
                             <div
-                                className={`main-navigation__main-item main-navigation-item__hover__${menuItem.toLowerCase()}`}>
+                                className={`main-navigation__main-item main-navigation-item__hover__${menuItem.toLowerCase().replace(" ", "-")}`}>
                                 {menuItem}
                             </div>
                         ))
                     }
-                    <div className={`submenu__appliances`}>
+                    <div className='submenu__common submenu__appliances'>
                         {catalogs.map(catalog => (
                             <div key={catalog.id} className='catalog-item'>
                                 <Icon name="ShoppingCart"/>
@@ -105,6 +115,17 @@ export const Head = () => {
                                         {secondCatalog.name}
                                     </Link>
                                 ) : null}
+                            </div>
+                        ))}
+                    </div>
+                    <div className='submenu__common submenu__better-living'>
+                        {betterLivingList.map(batterLivingItem => (
+                            <div key={batterLivingItem.name} className='batter-living-item'>
+                                <img className='batter-living-item-image' src={batterLivingItem.imageUrl}
+                                     alt={batterLivingItem.name}/>
+                                <div className='batter-living-item-title'>
+                                    {batterLivingItem.name}
+                                </div>
                             </div>
                         ))}
                     </div>
