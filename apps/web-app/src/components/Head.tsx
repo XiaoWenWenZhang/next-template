@@ -5,8 +5,7 @@ import Link from "next/link";
 import {Icon} from '@faststore/ui'
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
 import {ICart} from "src/types/cart";
-import {useEffect, useState} from "react";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 import {CatalogsContext} from "src/catalogs.context";
 import {emitter} from "src/utils/eventEmitter";
 
@@ -33,7 +32,7 @@ export const Head = () => {
         return () => {
             emitter.off('addToCart', fetchCount)
         }
-    },[count])
+    }, [count])
 
     return (
         <header style={{
@@ -83,9 +82,11 @@ export const Head = () => {
                     <Link
                         href={`/cart`} style={{position: "relative"}}>
                         <Icon
-                            style={{width: '45px', height: '45px',
-                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'}}
-                            component={<ShoppingCart />}
+                            style={{
+                                width: '45px', height: '45px',
+                                display: 'flex', alignItems: 'center', color: 'white', marginLeft: '10px'
+                            }}
+                            component={<ShoppingCart/>}
                         />
                         <div className={"card-icon-count"}>{count}</div>
                     </Link>
@@ -114,6 +115,7 @@ export const Head = () => {
                                     {catalog.name}
                                     {catalog.hasChildren ? catalog.children.map(secondCatalog =>
                                         <Link
+                                            key={secondCatalog.id}
                                             href={`/appliances/${catalog.name}`}
                                         >
                                             {secondCatalog.name}
