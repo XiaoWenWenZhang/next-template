@@ -4,17 +4,17 @@
   align-items: center;
 }
 
-.main-navigation-item__hover__appliances:hover ~ .submenu-navigation__appliances {
+.main-navigation-item__hover__appliances:hover ~ .submenu__appliances {
   display: flex;
 }
 
-.submenu-navigation__appliances:hover {
+.submenu__appliances:hover {
   & {
     display: flex;
   }
 }
 
-.submenu-navigation__appliances {
+.submenu__appliances {
   background-color: #fff;
   position: absolute;
   display: none;

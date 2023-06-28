@@ -92,7 +92,7 @@ export const Head = () => {
                             </div>
                         ))
                     }
-                    <div className={`submenu-navigation__appliances`}>
+                    <div className={`submenu__appliances`}>
                         {catalogs.map(catalog => (
                             <div key={catalog.id} className='catalog-item'>
                                 <Icon name="ShoppingCart"/>
