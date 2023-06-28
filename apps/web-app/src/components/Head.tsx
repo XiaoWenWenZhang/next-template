@@ -80,55 +80,46 @@ export const Head = () => {
                     </div>
                 </div>
                 <div className='main-navigation'>
-                    <div className='main-navigation-item'
-                         style={{
-                             display: 'flex',
-                             alignItems: 'center',
-                             height: '85px',
-                             padding: '8px 40px',
-                             backgroundColor: '#fff'
-                         }}>
-                        <div className="navigation-logo">
-                            <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
-                                 alt="Electrolux Thailand" width="144" height="35"/>
-                        </div>
-                        {
-                            menuList.map(menuItem => (
-                                <div className='main-navigation__main-item'>
-                                    {menuItem}
-                                </div>
-                            ))
-                        }
-
-                        <div className='submenu-navigation'>
-                            {catalogs.map(catalog => (
-                                <div key={catalog.id} className='catalog-item'>
-                                    <Icon name="ShoppingCart"/>
-                                    {catalog.name}
-                                    {catalog.hasChildren ? catalog.children.map(secondCatalog =>
-                                        <Link
-                                            key={secondCatalog.id}
-                                            href={`/appliances/${catalog.name}`}
-                                        >
-                                            {secondCatalog.name}
-                                        </Link>
-                                    ) : null}
-                                </div>
-                            ))}
-                        </div>
-
-                        <Link
-                            href={`/cart`} style={{position: "relative"}}>
-                            <Icon
-                                style={{
-                                    width: '45px', height: '45px',
-                                    display: 'flex', alignItems: 'center', color: '#011e41', marginLeft: '10px'
-                                }}
-                                component={<ShoppingCart/>}
-                            />
-                            <div className={"card-icon-count"}>{count}</div>
-                        </Link>
+                    <div className="navigation-logo">
+                        <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
+                             alt="Electrolux Thailand" width="144" height="35"/>
                     </div>
+                    {
+                        menuList.map(menuItem => (
+                            <div
+                                className={`main-navigation__main-item main-navigation-item__hover__${menuItem.toLowerCase()}`}>
+                                {menuItem}
+                            </div>
+                        ))
+                    }
+                    <div className={`submenu-navigation__appliances`}>
+                        {catalogs.map(catalog => (
+                            <div key={catalog.id} className='catalog-item'>
+                                <Icon name="ShoppingCart"/>
+                                {catalog.name}
+                                {catalog.hasChildren ? catalog.children.map(secondCatalog =>
+                                    <Link
+                                        key={secondCatalog.id}
+                                        href={`/appliances/${catalog.name}`}
+                                    >
+                                        {secondCatalog.name}
+                                    </Link>
+                                ) : null}
+                            </div>
+                        ))}
+                    </div>
+
+                    <Link
+                        href={`/cart`} style={{position: "relative"}}>
+                        <Icon
+                            style={{
+                                width: '45px', height: '45px',
+                                display: 'flex', alignItems: 'center', color: '#011e41', marginLeft: '10px'
+                            }}
+                            component={<ShoppingCart/>}
+                        />
+                        <div className={"card-icon-count"}>{count}</div>
+                    </Link>
                 </div>
             </nav>
             <meta name="description" content="test"/>

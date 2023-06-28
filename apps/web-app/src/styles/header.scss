@@ -1,30 +1,37 @@
 .main-navigation {
+  display: flex;
   position: relative;
+  align-items: center;
 }
 
-.main-navigation-item:hover .submenu-navigation {
+.main-navigation-item__hover__appliances:hover ~ .submenu-navigation__appliances {
   display: flex;
 }
 
-.submenu-navigation {
+.submenu-navigation__appliances:hover {
+  & {
+    display: flex;
+  }
+}
+
+.submenu-navigation__appliances {
   background-color: #fff;
   position: absolute;
   display: none;
   top: 100%;
-  overflow: hidden;
-  transition: .4s;
-  transform: none;
-  height: auto;
   padding: 10px 30px;
   width: 100%;
   border-top: 1px solid #dadada;
 }
 
 .main-navigation__main-item {
+  display: flex;
+  align-items: center;
   margin: 0 20px;
   font-size: 1rem;
   font-weight: 600;
   color: #011e41;
+  height: 85px;
 }
 
 .catalog-item {
