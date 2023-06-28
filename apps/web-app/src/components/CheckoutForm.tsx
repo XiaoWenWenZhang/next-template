@@ -3,14 +3,61 @@
 import "../styles/header.scss"
 import {useState} from "react";
 import {Radio, RadioGroup, RadioOption} from '@faststore/ui'
+import Link from "next/link";
 
+const deliveryPath = 'https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartItems/shippingdata/cd931e6fe5224a93b2864b7e7361ca1d';
+const shippingPath = 'https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartItems/paymentdata/9c5c871d60b94b3fa983cc0bcf9079ca';
+const deliveryMockData = {
+    clearAddressIfPostalCodeNotFound: false,
+    selectedAddresses: [
+        {
+            addressType: "residential",
+            receiverName: "receiver name",
+            addressId: "c3701fc4c61b4d1b91f67e81415db44d",
+            postalCode: "12345-000",
+            city: "Rio de Janeiro",
+            state: "RJ",
+            country: "CN",
+            street: "Praia de Botafogo",
+            number: "300",
+            neighborhood: "Botafogo",
+            complement: "3rd floor",
+            reference: "Grey building",
+            geoCoordinates: [
+                -47.924747467041016
+            ]
+        }
+    ],
+    logisticsInfo: [
+        {
+            itemIndex: 0,
+            selectedDeliveryChannel: "delivery",
+            selectedSla: "normal"
+        }
+    ]
+}
+const shippingMockData = {
+    payments: [
+        {
+            paymentSysytem: 1,
+            paymentSystemName: "Boleto Bancário",
+            group: "bankInvoicePaymentGroup",
+            installments: 3,
+            installmentsInterestRate: 0,
+            installmentsValue: 100,
+            value: 574267,
+            referenceValue: 300,
+            hasDefaultBillingAddress: false
+        }
+    ]
+}
 
 const stepCircleConfig = [
     {
         id: 1,
         title: 'Delivery details',
         status: 'active',
-        content: 'Address: Rio de Janeiro',
+        content: 'Address:',
     },
     {
         id: 2,
@@ -22,28 +69,22 @@ const stepCircleConfig = [
         id: 3,
         title: 'Review',
         status: 'unfinished',
-        content: 'Review Details',
+        content: '',
     },
 ]
+const deliveryDetails = <>
+    <div className="checkout-item-block">
+        <div style={{fontSize: '24px'}}>svdfgv vss</div>
+        <div>33463, Pak Nam, Mueang Samut Prakan, Samut Prakan, 10270</div>
+        <div>(+66) 242452</div>
+        <div>pjoui@afaf.com</div>
+    </div>
+
+</>
 
 export const CheckoutForm = () => {
-    const deliveryDetails = <>
-        <div style={{
-            padding: '15px 15px 10px',
-            backgroundColor: 'rgba(223,231,234,.4)',
-            borderRadius: '2px',
-            border: '1px solid #adb9c3',
-            cursor: 'pointer',
-            lineHeight: '22px',
-        }}>
-            <div style={{fontSize: '24px'}}>svdfgv vss</div>
-            <div>33463, Pak Nam, Mueang Samut Prakan, Samut Prakan, 10270</div>
-            <div>(+66) 242452</div>
-            <div>pjoui@afaf.com</div>
-        </div>
-
-    </>
     const [option, setOption] = useState('radio1')
+    const [address, setAddress] = useState('')
 
     const shippingAndPayment = <>
         <div style={{
@@ -96,21 +137,40 @@ export const CheckoutForm = () => {
         </div>
     </>
 
+    const reviewDetail = <>
+        <h1 style={{display: 'flex'}}>Delivery address</h1>
+        <div className="checkout-item-block">
+            <div style={{fontSize: '24px'}}>svdfgv vss</div>
+            <div>{address}</div>
+            <div>(+66) 242452</div>
+            <div>pjoui@afaf.com</div>
+        </div>
+        <h1 className="checkout-detail">Shipping</h1>
+        <div className="checkout-item-block checkout-detail" >
+            <div style={{fontSize: '16px', width: "50%"}}>Method</div>
+            <div style={{fontSize: '16px', fontWeight: 600}}>Standard shipping</div>
+        </div>
+        <h1 className="checkout-detail">Payment</h1>
+        <div className="checkout-item-block checkout-detail">
+            <div style={{fontSize: '16px', width: "50%"}}>Method</div>
+            <div style={{fontSize: '16px', fontWeight: 600}}>Credit/Debit cards</div>
+        </div>
+    </>
+
     const stepCircleContentConfig = {
         1: deliveryDetails,
         2: shippingAndPayment,
-        3: <div>svdfgv vss
-            33463, Pak Nam, Mueang Samut Prakan, Samut Prakan, 10270
-            (+66) 242452
-            pjoui@afaf.com</div>,
+        3: reviewDetail,
     }
     const [config, setConfig] = useState(stepCircleConfig);
     const stepCircle = config.map(item => (
         <li key={item.id} className={`${item.status == 'active' ? 'form-stepper-active' : ''} 
         ${item.status == 'complete' ? 'form-stepper-completed' : ''}
         text-center form-stepper-list`}
-            step={item.id}>
-            <div className="mx-2">
+            step={item.id}
+            onClick={() => handleNavigator(item.id)}
+        >
+            <div className="mx-2" style={{cursor: 'pointer'}}>
                     <span className={`form-stepper-circle ${item.status == 'unfinished' ? 'text-muted' : ''}`}>
                         {item.status != 'complete' && <span>{item.id}</span>}
                     </span>
@@ -139,28 +199,59 @@ export const CheckoutForm = () => {
         ])
     }
 
+    const submitCheckoutDetails = (id) => {
+        if (id == 1) {
+            addDeliveryDetails()
+        } else {
+            addShippingDetails()
+        }
+    }
+
+    const addDeliveryDetails= () => {
+        const body = JSON.stringify(deliveryMockData)
+        fetch(deliveryPath, {method: 'POST', body}).then((res) => res.json()).then(data => {
+            const deliveryAddress = data.shippingData.address
+            const {
+                postalCode, complement, neighborhood, street, city, number
+            } = deliveryAddress
+            const displayAddress = [postalCode, complement, neighborhood, street, city, number].join(', ')
+            console.log("displayAddress", displayAddress)
+            console.log(data)
+            setAddress(displayAddress)
+        }).catch(err => {
+            console.log(111, err)
+        })
+    }
+
+    const addShippingDetails= () => {
+        const body = JSON.stringify(shippingMockData)
+        fetch(shippingPath, {method: 'POST', body}).then((res) => res.json()).then(data => {
+            console.log(data)
+        }).catch(err => {
+            console.log(111, err)
+        })
+    }
 
     const stepSubForm = config.map(item => (
         <section key={item.id} id={`step-${item.id}`}
                  className={`form-step ${item.status != 'active' ? 'd-none' : ''}`}>
             <h2 className="font-normal">{item.content}</h2>
             <div>{stepCircleContentConfig[item.id]}</div>
-            <div className="mt-3">
-                {
-                    item.id > 1 &&
-                    <button className="button btn-navigate-form-step" type="button" step_number={item.id - 1}
-                            onClick={() => handleNavigator(item.id - 1)}>Prev
-                    </button>
-                }
+            <div className="mt-3" >
                 {
                     item.id < config.length &&
-                    <button className="button btn-navigate-form-step" type="button" step_number={item.id + 1}
-                            onClick={() => handleNavigator(item.id + 1)}>Next
+                    <button style={{width: '100%'}} className="button btn-navigate-form-step" type="button" step_number={item.id + 1}
+                            onClick={() => {
+                                handleNavigator(item.id + 1);
+                                submitCheckoutDetails(item.id);
+                            }}>Next
                     </button>
                 }
                 {
                     item.id == config.length &&
-                    <button className="button submit-btn" type="submit">Confirm Order</button>
+                    <Link href='/cart'>
+                    <button style={{width: '100%'}} className="button submit-btn" type="submit">Confirm Order</button>
+                    </Link>
                 }
             </div>
         </section>

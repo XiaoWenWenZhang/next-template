@@ -48,14 +48,27 @@
 .checkout-item {
   padding: 13px 15px;
   margin: 10px 0;
-  backgroundColor: rgba(223,231,234,.4);
-  borderRadius: 2px;
+  background-color: rgba(223,231,234,.4);
+  border-radius: 2px;
   cursor: pointer;
   border: 1px solid #011e41;
 }
 
+.checkout-item-block {
+  padding: 15px 15px 10px;
+  background-color: rgba(223,231,234,.4);
+  border-radius: 2px;
+  border: 1px solid #adb9c3;
+  cursor: pointer;
+  font-size: .875rem;
+  line-height: 22px;
+}
 
-
+.checkout-detail {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 20px;
+  display: flex;
+}
 
 h1 {
   text-align: center;
