@@ -13,8 +13,8 @@ export const Head = () => {
     const {catalogs} = useContext(CatalogsContext);
 
     const [count, setCount] = useState(0);
+    const menuList = ['Appliances', 'Services', 'Support', 'Promotions', 'Blog', 'Better living']
     const fetchCount = async () => {
-
         const cartResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`,
             {cache: "no-cache"});
         const product: ICart = await cartResponse.json();
@@ -92,9 +92,14 @@ export const Head = () => {
                             <img src="https://www.electrolux.co.th/globalassets/settings/electrolux-logo.svg"
                                  alt="Electrolux Thailand" width="144" height="35"/>
                         </div>
-                        <div style={{margin: '0 20px'}}>
-                            Appliances
-                        </div>
+                        {
+                            menuList.map(menuItem => (
+                                <div className='main-navigation__main-item'>
+                                    {menuItem}
+                                </div>
+                            ))
+                        }
+
                         <div className='submenu-navigation'>
                             {catalogs.map(catalog => (
                                 <div key={catalog.id} className='catalog-item'>

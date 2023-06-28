@@ -20,6 +20,13 @@
   border-top: 1px solid #dadada;
 }
 
+.main-navigation__main-item {
+  margin: 0 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #011e41;
+}
+
 .catalog-item {
   display: flex;
   flex-direction: column;
@@ -48,7 +55,7 @@
 .checkout-item {
   padding: 13px 15px;
   margin: 10px 0;
-  background-color: rgba(223,231,234,.4);
+  background-color: rgba(223, 231, 234, .4);
   border-radius: 2px;
   cursor: pointer;
   border: 1px solid #011e41;
@@ -56,7 +63,7 @@
 
 .checkout-item-block {
   padding: 15px 15px 10px;
-  background-color: rgba(223,231,234,.4);
+  background-color: rgba(223, 231, 234, .4);
   border-radius: 2px;
   border: 1px solid #adb9c3;
   cursor: pointer;
@@ -86,22 +93,28 @@
 h1 {
   text-align: center;
 }
+
 h2 {
   margin: 0;
 }
+
 #multi-step-form-container {
   margin-top: 5rem;
 }
+
 .text-center {
   text-align: center;
 }
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
 }
+
 .pl-0 {
   padding-left: 0;
 }
+
 .button {
   padding: 0.7rem 1.5rem;
   border: 1px solid #011e41;
@@ -110,40 +123,50 @@ h2 {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .submit-btn {
   border: 1px solid #011e41;
   background-color: #011e41;
 }
+
 .mt-3 {
   margin-top: 2rem;
+
   & .button {
     margin-right: 20px;
   }
 }
+
 .d-none {
   display: none;
 }
+
 .form-step {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 3rem;
 }
+
 .font-normal {
   font-weight: normal;
 }
+
 ul.form-stepper {
   counter-reset: section;
   margin-bottom: 3rem;
 }
+
 ul.form-stepper .form-stepper-circle {
   position: relative;
 }
+
 ul.form-stepper .form-stepper-circle span {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translateY(-50%) translateX(-50%);
 }
+
 .form-stepper-horizontal {
   position: relative;
   display: -webkit-box;
@@ -153,15 +176,18 @@ ul.form-stepper .form-stepper-circle span {
   -ms-flex-pack: justify;
   justify-content: space-between;
 }
+
 ul.form-stepper > li:not(:last-of-type) {
   margin-bottom: 0.625rem;
   -webkit-transition: margin-bottom 0.4s;
   -o-transition: margin-bottom 0.4s;
   transition: margin-bottom 0.4s;
 }
+
 .form-stepper-horizontal > li:not(:last-of-type) {
   margin-bottom: 0 !important;
 }
+
 .form-stepper-horizontal li {
   position: relative;
   display: -webkit-box;
@@ -176,6 +202,7 @@ ul.form-stepper > li:not(:last-of-type) {
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
+
 .form-stepper-horizontal li:not(:last-child):after {
   position: relative;
   -webkit-box-flex: 1;
@@ -185,15 +212,19 @@ ul.form-stepper > li:not(:last-of-type) {
   content: "";
   top: 32%;
 }
+
 .form-stepper-horizontal li:after {
   background-color: #dee2e6;
 }
+
 .form-stepper-horizontal li.form-stepper-completed:after {
   background-color: #011e41;
 }
+
 .form-stepper-horizontal li:last-child {
   flex: unset;
 }
+
 ul.form-stepper li div .form-stepper-circle {
   display: inline-block;
   width: 40px;
@@ -204,26 +235,32 @@ ul.form-stepper li div .form-stepper-circle {
   background: rgba(0, 0, 0, 0.38);
   border-radius: 50%;
 }
+
 .form-stepper .form-stepper-active .form-stepper-circle {
   background-color: #011e41 !important;
   color: #fff;
 }
+
 .form-stepper .form-stepper-active .label {
   color: #011e41 !important;
 }
+
 .form-stepper .form-stepper-active .form-stepper-circle:hover {
   background-color: #011e41 !important;
   color: #fff !important;
 }
+
 .form-stepper .form-stepper-unfinished .form-stepper-circle {
   background-color: #f8f7ff;
 }
+
 .form-stepper .form-stepper-completed .form-stepper-circle {
   background-color: #011e41;
   background-image: url('https://www.electrolux.co.th/Static/assets/images/icons/checked-icon.svg');
   background-repeat: no-repeat;
   background-position: 50%;
 }
+
 .form-stepper .form-stepper-completed .label {
   color: #011e41 !important;
 }
@@ -231,13 +268,16 @@ ul.form-stepper li div .form-stepper-circle {
 .form-stepper .form-stepper-active span.text-muted {
   color: #fff !important;
 }
+
 .form-stepper .form-stepper-completed span.text-muted {
   color: #fff !important;
 }
+
 .form-stepper .label {
   font-size: 1rem;
   margin-top: 0.5rem;
 }
+
 .form-stepper div {
   cursor: default;
 }
