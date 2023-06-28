@@ -1,9 +1,25 @@
-import {IProduct} from "src/types/product";
-import {AddToCart} from "src/components/AddToCart";
+'use client'
 
-export default async function Page({params}: { params: { slug: string } }) {
-    const productAndSKUIdResponse = await fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/skus/4`);
-    const productList: IProduct[] = await productAndSKUIdResponse.json();
+import {AddToCart} from "src/components/AddToCart";
+import {CatalogsContext} from "src/catalogs.context";
+import {useContext, useEffect, useState} from "react";
+
+export default function Page({params}: { params: { slug: string } }) {
+    const {secondCatalogs} = useContext(CatalogsContext);
+    const [productList, setProductList] = useState([]);
+
+
+    useEffect(() => {
+        const catalog = secondCatalogs.find((c) => (c.alias === params.slug));
+        fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/skus/${catalog.id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setProductList(data);
+            })
+            .catch((error) => {
+                console.error('Error fetching product list:', error);
+            });
+    }, []);
 
     return (
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>

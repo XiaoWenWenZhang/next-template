@@ -6,4 +6,5 @@ export interface ICatalog {
     MetaTagDescription: string;
     children: ICatalog[];
     hasChildren: boolean;
+    alias: string;
 }
