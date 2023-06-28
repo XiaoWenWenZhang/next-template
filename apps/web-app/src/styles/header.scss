@@ -45,7 +45,14 @@
   justify-content: center;
 }
 
-
+.checkout-item {
+  padding: 13px 15px;
+  margin: 10px 0;
+  backgroundColor: rgba(223,231,234,.4);
+  borderRadius: 2px;
+  cursor: pointer;
+  border: 1px solid #011e41;
+}
 
 
 
@@ -78,11 +85,14 @@ h2 {
   cursor: pointer;
 }
 .submit-btn {
-  border: 1px solid #0e9594;
-  background-color: #0e9594;
+  border: 1px solid #011e41;
+  background-color: #011e41;
 }
 .mt-3 {
   margin-top: 2rem;
+  & .button {
+    margin-right: 20px;
+  }
 }
 .d-none {
   display: none;
