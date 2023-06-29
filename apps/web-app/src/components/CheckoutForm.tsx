@@ -5,8 +5,8 @@ import {useState} from "react";
 import {Radio, RadioGroup, RadioOption} from '@faststore/ui'
 import Link from "next/link";
 
-const deliveryPath = 'https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartItems/shippingdata/cd931e6fe5224a93b2864b7e7361ca1d';
-const shippingPath = 'https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartItems/paymentdata/9c5c871d60b94b3fa983cc0bcf9079ca';
+const deliveryPath = 'https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartAttachments/shippingData/cd931e6fe5224a93b2864b7e7361ca1d';
+const paymentPath = 'https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartAttachments/logisticAndPaymentData/cd931e6fe5224a93b2864b7e7361ca1d';
 const deliveryMockData = {
     clearAddressIfPostalCodeNotFound: false,
     selectedAddresses: [
@@ -27,27 +27,27 @@ const deliveryMockData = {
                 -47.924747467041016
             ]
         }
-    ],
-    logisticsInfo: [
-        {
-            itemIndex: 0,
-            selectedDeliveryChannel: "delivery",
-            selectedSla: "normal"
-        }
     ]
 }
 const paymentMockData = {
-    payments: [
+    "logisticsInfo": [
         {
-            paymentSysytem: 1,
-            paymentSystemName: "Boleto Bancário",
-            group: "bankInvoicePaymentGroup",
-            installments: 3,
-            installmentsInterestRate: 0,
-            installmentsValue: 100,
-            value: 574267,
-            referenceValue: 300,
-            hasDefaultBillingAddress: false
+            "itemIndex": 0,
+            "selectedDeliveryChannel": "delivery",
+            "selectedSla": "normal"
+        }
+    ],
+    "payments": [
+        {
+            "paymentSysytem": 1,
+            "paymentSystemName": "2C2P",
+            "group": "redirect",
+            "installments": 3,
+            "installmentsInterestRate": 0,
+            "installmentsValue": 100,
+            "value": 300,
+            "referenceValue": 300,
+            "hasDefaultBillingAddress": false
         }
     ]
 }
@@ -225,7 +225,7 @@ export const CheckoutForm = () => {
 
     const addShippingDetails= () => {
         const body = JSON.stringify(paymentMockData)
-        fetch(shippingPath, {method: 'POST', body}).then((res) => res.json()).then(data => {
+        fetch(paymentPath, {method: 'POST', body}).then((res) => res.json()).then(data => {
             console.log(data)
         }).catch(err => {
             console.log(111, err)
@@ -249,7 +249,7 @@ export const CheckoutForm = () => {
                 }
                 {
                     item.id == config.length &&
-                    <Link href='/cart'>
+                    <Link href='/payment'>
                     <button style={{width: '100%'}} className="button submit-btn" type="submit">Confirm Order</button>
                     </Link>
                 }

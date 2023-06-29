@@ -79,7 +79,7 @@ export const CardItems = ({
                 <div key={cartItem.id} style={{
                     display: 'flex',
                     flexDirection: 'row',
-                    borderBottom: '1px solid #ccc',
+                    borderBottom: '1px solid #dfe7ea',
                     alignItems: 'center',
                     marginBottom: '50px',
                     paddingBottom: '10px',
@@ -131,19 +131,14 @@ export const CardItems = ({
                         <Price
                             value={cartItem.price}
                             variant="listing"
-                            style={{textDecoration: 'line-through', marginRight: '15px'}}
+                            style={{textDecoration: 'line-through', marginRight: '15px', fontWeight: 600}}
                         />
                         <Price value={cartItem.price} variant="selling"/>
-                        <Badge>0% OFF {cartItem.id}</Badge>
+                        <Badge>0% OFF</Badge>
                     </div>
                 </div>
 
             ))}
-            <ProductCardActions>
-                <Link href='/checkout'>
-                    <Button>PROCEED TO SECURE CHECKOUT</Button>
-                </Link>
-            </ProductCardActions>
         </div>
     );
 };

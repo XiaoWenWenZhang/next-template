@@ -8,7 +8,7 @@ export default function Root({children}: { children: React.ReactNode }) {
         <CatalogsContextProvider>
             <Head/>
             <div style={{
-                paddingTop: '100px'
+                paddingTop: '69px'
             }}>
                 {children}
             </div>
