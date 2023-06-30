@@ -4,7 +4,7 @@ export interface ICatalog {
     url: string;
     Title: string;
     MetaTagDescription: string;
-    children: ICatalog[];
+    children?: ICatalog[];
     hasChildren: boolean;
     alias: string;
 }
