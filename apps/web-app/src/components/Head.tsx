@@ -25,6 +25,32 @@ const BETTER_LIVING_LIST = [
             "https://www.electrolux.co.th/globalassets/homepage/main-menu/th-make-it-last-thumbnail.jpg?mode=crop&preset=large",
     },
 ];
+const FIRST_LEVEL_CATALOGS = [
+    {
+        name: "Kitchen",
+        iconUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/kitchen.svg?mode=crop"
+    },
+    {
+        name: "Laundry",
+        iconUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/laundry.svg?mode=crop"
+    },
+    {
+        name: "Floor",
+        iconUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/floor.svg?mode=crop"
+    },
+    {
+        name: "Air",
+        iconUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/air.svg?mode=crop"
+    },
+    {
+        name: "Bathroom",
+        iconUrl: "https://www.electrolux.co.th/globalassets/homepage/main-menu/bathroom.svg?mode=crop"
+    },
+    {
+        name: "Accessories and spare parts",
+        iconUrl: "https://www.electrolux.co.th/globalassets/icons/accessories-2.svg?mode=crop"
+    },
+];
 
 export const Head = () => {
     const {catalogs} = useContext(CatalogsContext);
@@ -43,6 +69,17 @@ export const Head = () => {
                 console.log(error);
             });
     };
+
+    const catalogsResult = catalogs.map(catalog => {
+        const catalogIndex = FIRST_LEVEL_CATALOGS.findIndex(item => item.name === catalog.name);
+
+        if (catalogIndex >= 0) {
+            return {
+                ...catalog,
+                ...FIRST_LEVEL_CATALOGS[catalogIndex]
+            }
+        }
+    }).filter(item => item);
 
     useEffect(() => {
         fetchCount();
@@ -131,64 +168,38 @@ export const Head = () => {
                             {menuItem}
                         </div>
                     ))}
-                    <Icon
-                        style={{
-                            width: "25px",
-                            height: "25px",
-                            display: "flex",
-                            alignItems: "center",
-                            color: "#011e41",
-                            marginLeft: "10px",
-                        }}
-                        component={<Search/>}
-                    />
-                    <Icon
-                        style={{
-                            width: "25px",
-                            height: "25px",
-                            display: "flex",
-                            alignItems: "center",
-                            color: "#011e41",
-                            marginLeft: "10px",
-                        }}
-                        component={<Heart/>}
-                    />
-                    <Icon
-                        style={{
-                            width: "25px",
-                            height: "25px",
-                            display: "flex",
-                            alignItems: "center",
-                            color: "#011e41",
-                            marginLeft: "10px",
-                        }}
-                        component={<User/>}
-                    />
+                    <Icon className="navigation-icon" component={<Search/>}/>
+                    <Icon className="navigation-icon" component={<Heart/>}/>
+                    <Icon className="navigation-icon" component={<User/>}/>
 
                     <Link href={`/cart`} style={{position: "relative"}}>
                         <Icon
-                            style={{
-                                width: "45px",
-                                height: "45px",
-                                display: "flex",
-                                alignItems: "center",
-                                color: "#011e41",
-                                marginLeft: "10px",
-                            }}
+                            className="navigation-icon"
                             component={<ShoppingCart/>}
                         />
                         <div className={"card-icon-count"}>{count}</div>
                     </Link>
 
                     <div className="submenu__common submenu__appliances">
-                        {catalogs.map((catalog) => (
-                            <div key={catalog.id} className="catalog-item">
-                                {catalog.name}
+                        {catalogsResult.map((catalog) => (
+                            <div className="submenu-navigation__group">
+                                <div key={catalog.id} className="submenu-navigation__group-title">
+                                    <img
+                                        className="preview"
+                                        src={catalog.iconUrl}
+                                        alt={catalog.name}
+                                        width="32"
+                                        height="32"
+                                    />
+                                    <span> {catalog.name}</span>
+                                </div>
                                 {catalog.hasChildren
                                     ? catalog.children.map((secondCatalog) => (
-                                        <Link key={secondCatalog.id} href={`/appliances/${catalog.name}`}>
-                                            {secondCatalog.name}
-                                        </Link>
+                                        <div key={secondCatalog.id} className="submenu-navigation__group-item">
+                                            <Link href={`/appliances/${catalog.alias}`} className="link">
+                                                {secondCatalog.name}
+                                            </Link>
+                                        </div>
                                     ))
                                     : null}
                             </div>

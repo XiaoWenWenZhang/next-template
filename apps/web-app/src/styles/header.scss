@@ -2,7 +2,10 @@
   display: flex;
   position: relative;
   align-items: center;
-  padding: 0 40px;
+}
+
+.navigation-logo {
+  margin-left: 40px;
 }
 
 .main-navigation-item__hover__appliances:hover ~ .submenu__appliances {
@@ -16,6 +19,19 @@
 .submenu__appliances:hover,
 .submenu__better-living:hover {
   display: flex;
+}
+
+.main-navigation-item__hover__better-living {
+  margin-right: auto !important;
+}
+
+.navigation-icon {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  color: #011e41;
+  margin: 0 16px;
 }
 
 
@@ -37,6 +53,10 @@
   font-weight: 600;
   color: #011e41;
   height: 85px;
+
+  &:hover {
+    border-bottom: 4px solid #011e41;
+  }
 }
 
 .batter-living-item {
@@ -345,7 +365,7 @@ ul.form-stepper li div .form-stepper-circle {
 }
 
 .search-bar {
-  display: block;
+  display: none;
   left: 580.109px;
   max-width: 375px;
   //top: calc(100% - 23px);
@@ -355,4 +375,39 @@ ul.form-stepper li div .form-stepper-circle {
   width: 100%;
   top: 65px;
   background: #fff;
+}
+
+.submenu-navigation__group {
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.submenu-navigation__group-title {
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: left;
+  color: #011e41;
+  margin: 7px 0 11px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.preview {
+  //margin: auto auto 2px;
+  margin-right: 2px;
+  width: 25px;
+  height: 25px;
+}
+
+.submenu-navigation__group-item {
+  padding: 10px 0 0;
+  max-height: none;
+  transition: unset;
+}
+
+.link {
+  text-decoration: none;
+  color: #011e41;
 }
