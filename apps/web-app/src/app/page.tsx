@@ -1,5 +1,5 @@
-import Link from "next/link";
 import "../styles/home.scss";
+import Link from "next/link";
 import { getCatalogsFromResponse } from "src/utils/responseMapper";
 import Image from "next/image";
 
@@ -52,8 +52,8 @@ export default async function IndexPage() {
                 className="promotion-campaign-banner__item-img"
                 src={promotionCampaignItem.imageUrl}
                 alt={promotionCampaignItem.title}
-                width="100"
-                height="100"
+                width="32"
+                height="32"
               />
               <div className="promotion-campaign-banner__item-text">{promotionCampaignItem.title}</div>
             </div>
