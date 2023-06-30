@@ -8,6 +8,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.electrolux.co.th",
       },
+      {
+        protocol: "https",
+        hostname: "vtexsgdemostore.vteximg.com.br",
+      },
     ],
   },
   webpack(config) {
