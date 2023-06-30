@@ -34,8 +34,8 @@ export default function IndexPage() {
         <div className='body-container'>
             <div className='promotion-campaign-banner'>
                 {
-                    promotionCampaignList.map(promotionCampaignItem => (
-                        <div key={promotionCampaignItem.title} className='promotion-campaign-banner__item'>
+                    promotionCampaignList.map((promotionCampaignItem, index) => (
+                        <div key={index} className='promotion-campaign-banner__item'>
                             <div className='promotion-campaign-banner__item-wrapper'>
                                 <img className='promotion-campaign-banner__item-img'
                                      src={promotionCampaignItem.imageUrl}
