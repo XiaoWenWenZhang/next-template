@@ -1,6 +1,7 @@
 import "../styles/home.scss";
 import Image from "next/image";
 import HeroBannerStandard from "src/components/HeroBannerStandard";
+import BrowseProducts from "src/components/BrowseProducts";
 
 const PROMOTION_CAMPAIGN_LIST = [
     {
@@ -45,6 +46,7 @@ export default async function IndexPage() {
                 ))}
             </div>
             <HeroBannerStandard/>
+            <BrowseProducts/>
         </div>
     );
 }

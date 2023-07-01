@@ -1,17 +1,28 @@
 .slick-list {
   width: 100%;
+
+  .mantine-Carousel-control {
+    padding: 16px;
+    border: 2px solid #011e41;
+    background: #dfe7ea;
+    opacity: .6;
+    width: 64px;
+    height: 64px;
+    border-radius: 2.625rem;
+  }
+
+  .card {
+    height: 500px;
+  }
+
+  .mantine-Carousel-indicator {
+    cursor: pointer;
+    width: 8px;
+    height: 8px;
+    background-color: #011e41;
+    margin: 10px;
+  }
 }
 
-.card {
-  height: 500px;
-}
 
-.mantine-Carousel-control {
-  padding: 16px;
-  border: 2px solid #011e41;
-  background: #dfe7ea;
-  opacity: .6;
-  width: 64px;
-  height: 64px;
-  border-radius: 2.625rem;
-}
+
