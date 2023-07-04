@@ -114,7 +114,6 @@ export const Head = () => {
             setProductList(data);
         })
     }
-    console.log("000000000", productList);
 
     const catalogsResult = catalogs.map(catalog => {
         const catalogIndex = FIRST_LEVEL_CATALOGS.findIndex(item => item.name === catalog.name);
@@ -228,8 +227,8 @@ export const Head = () => {
 
                     <div className="submenu__common submenu__appliances">
                         {catalogsResult.map((catalog) => (
-                            <div className="submenu-navigation__group">
-                                <div key={catalog.id} className="submenu-navigation__group-title">
+                            <div key={catalog.id} className="submenu-navigation__group">
+                                <div className="submenu-navigation__group-title">
                                     <img
                                         className="preview"
                                         src={catalog.iconUrl}
@@ -290,8 +289,9 @@ export const Head = () => {
                                 {`Buscar por "${inputValue}"`}
                             </div>
                             {
-                                productList.length > 0 && productList.map(item => (
-                                    <Link href={``} className="product-block">
+                                productList.length > 0 && productList.map((item, index) => (
+                                    <Link key={index} href={`/appliances/detail/${item.name}`}
+                                          className="product-block" onClick={() => setHideSearchBar(true)}>
                                         <Image
                                             src={item.thumbUrl}
                                             alt={item.name}

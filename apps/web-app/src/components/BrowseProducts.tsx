@@ -148,8 +148,8 @@ function Card({secondCatalogs}: ISecondCatalogs[]) {
     return (
         <div className="card">
             {
-                secondCatalogs.map((item) =>
-                    <Link href={`/appliances/${item.title}`} className="link-block">
+                secondCatalogs.map((item, index) =>
+                    <Link key={index} href={`/appliances/${item.title}`} className="link-block">
                         <img
                             src={item.imageUrl}
                             alt={item.title}
@@ -171,10 +171,9 @@ function BrowseProducts() {
             groupedSecondCatalogs.push(SECOND_CATALOGS.slice(index, index + 2));
         }
     });
-    console.log("------------------", groupedSecondCatalogs)
 
-    const slides = groupedSecondCatalogs.map((item) => (
-        <Carousel.Slide key={item.id}>
+    const slides = groupedSecondCatalogs.map((item, index) => (
+        <Carousel.Slide key={index}>
             <Card secondCatalogs={item}/>
         </Carousel.Slide>
     ));
