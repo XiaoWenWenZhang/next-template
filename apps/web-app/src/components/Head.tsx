@@ -68,7 +68,7 @@ interface SearchProduct {
 export const Head = () => {
     const {catalogs} = useContext(CatalogsContext);
     const [count, setCount] = useState(0);
-    const [hideSearchBar, setHideSearchBar] = useState(false);
+    const [hideSearchBar, setHideSearchBar] = useState(true);
     const [inputValue, setInputValue] = useState("");
     const [productList, setProductList] = useState<SearchProduct[]>([]);
 
