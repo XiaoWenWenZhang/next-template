@@ -366,7 +366,6 @@ ul.form-stepper li div .form-stepper-circle {
 }
 
 .search-bar {
-  display: none;
   left: 580.109px;
   max-width: 375px;
   //top: calc(100% - 23px);
@@ -376,6 +375,32 @@ ul.form-stepper li div .form-stepper-circle {
   width: 100%;
   top: 65px;
   background: #fff;
+}
+
+.hidden-search-bar {
+  display: none;
+}
+
+.display-search-bar {
+  display: block;
+}
+
+.search-tip-bar {
+  padding: 12px;
+}
+
+.product-block {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+
+  img {
+    margin-right: 10px;
+  }
+
+  &:hover {
+    background-color: #dfe7ea;
+  }
 }
 
 .submenu-navigation__group {

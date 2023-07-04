@@ -52,9 +52,45 @@ const FIRST_LEVEL_CATALOGS = [
     },
 ];
 
+interface Sku {
+    productId: string;
+    itemId: string;
+    nameComplete: string;
+    imageUrl: string;
+}
+
+interface SearchProduct {
+    items: Sku[],
+    name: string;
+    thumbUrl: string;
+}
+
 export const Head = () => {
     const {catalogs} = useContext(CatalogsContext);
     const [count, setCount] = useState(0);
+    const [hideSearchBar, setHideSearchBar] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+    const [productList, setProductList] = useState<SearchProduct[]>([]);
+
+    const handleBlur = () => {
+        setHideSearchBar(true);
+        setInputValue("");
+    };
+
+    const handleClickSearchBar = () => {
+        setHideSearchBar(false);
+    };
+
+    const handleChangeSearchBar = (event) => {
+        const newValue = event.target.value;
+
+        setInputValue(newValue);
+    };
+
+    useEffect(() => {
+        fetchProductList();
+    }, [inputValue]);
+
 
     const fetchCount = () => {
         return fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/cartPage/cd931e6fe5224a93b2864b7e7361ca1d`, {
@@ -69,6 +105,16 @@ export const Head = () => {
                 console.log(error);
             });
     };
+
+    const fetchProductList = () => {
+        fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/products/complete?productNameContains=${inputValue}`).then(res => {
+            return res.json();
+        }).then(data => {
+            data.shift();
+            setProductList(data);
+        })
+    }
+    console.log("000000000", productList);
 
     const catalogsResult = catalogs.map(catalog => {
         const catalogIndex = FIRST_LEVEL_CATALOGS.findIndex(item => item.name === catalog.name);
@@ -168,7 +214,7 @@ export const Head = () => {
                             {menuItem}
                         </div>
                     ))}
-                    <Icon className="navigation-icon" component={<Search/>}/>
+                    <Icon className="navigation-icon" component={<Search/>} onClick={handleClickSearchBar}/>
                     <Icon className="navigation-icon" component={<Heart/>}/>
                     <Icon className="navigation-icon" component={<User/>}/>
 
@@ -220,9 +266,11 @@ export const Head = () => {
                         ))}
                     </div>
 
-                    <div className="search-bar">
+                    <div className={`${hideSearchBar ? 'hidden-search-bar' : 'display-search-bar'} search-bar`}>
                         <div className="input-area">
-                            <input type="text" className="global-search-nav" placeholder="ค้นหา" maxLength="100"/>
+                            <input type="text" value={inputValue} className="global-search-nav" placeholder="search..."
+                                   maxLength="100"
+                                   onBlur={handleBlur} onChange={handleChangeSearchBar}/>
                             <div className="view-all-search-icon click-disable">
                                 <Icon
                                     style={{
@@ -236,6 +284,25 @@ export const Head = () => {
                                     component={<Search/>}
                                 />
                             </div>
+                        </div>
+                        <div className="search-tip-bar">
+                            <div className="product-block">
+                                {`Buscar por "${inputValue}"`}
+                            </div>
+                            {
+                                productList.length > 0 && productList.map(item => (
+                                    <Link href={``} className="product-block">
+                                        <Image
+                                            src={item.thumbUrl}
+                                            alt={item.name}
+                                            width="25"
+                                            height="25"
+                                        />
+                                        <div>
+                                            {item.name}
+                                        </div>
+                                    </Link>))
+                            }
                         </div>
                     </div>
 
