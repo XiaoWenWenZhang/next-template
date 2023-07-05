@@ -89,6 +89,7 @@ export const Head = () => {
 
     useEffect(() => {
         fetchProductList();
+        console.log(productList)
     }, [inputValue]);
 
 
@@ -111,6 +112,7 @@ export const Head = () => {
             return res.json();
         }).then(data => {
             data.shift();
+            console.log(data)
             setProductList(data);
         })
     }
@@ -290,7 +292,7 @@ export const Head = () => {
                             </div>
                             {
                                 productList.length > 0 && productList.map((item, index) => (
-                                    <Link key={index} href={`/appliances/detail/${item.name}`}
+                                    <Link key={index} href={`/appliances/detail/${item.items[0].productId}`}
                                           className="product-block" onClick={() => setHideSearchBar(true)}>
                                         <Image
                                             src={item.thumbUrl}
