@@ -286,12 +286,12 @@ export const Head = () => {
                                 />
                             </div>
                         </div>
-                        <div className="search-tip-bar">
+                        {productList.length > 0 && <div className="search-tip-bar">
                             <div className="product-block">
                                 {`Buscar por "${inputValue}"`}
                             </div>
                             {
-                                productList.length > 0 && productList.map((item, index) => (
+                                productList.map((item, index) => (
                                     <Link key={index} href={`/appliances/detail/${item.items[0].productId}`}
                                           className="product-block" onClick={() => setHideSearchBar(true)}>
                                         <Image
@@ -305,7 +305,7 @@ export const Head = () => {
                                         </div>
                                     </Link>))
                             }
-                        </div>
+                        </div>}
                     </div>
 
                 </div>
