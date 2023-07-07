@@ -4,13 +4,14 @@ import "../styles/header.scss";
 import Link from "next/link";
 import {Icon} from "@faststore/ui";
 import ShoppingCart from "@faststore/ui/dist/atoms/Icon/stories/assets/ShoppingCart";
-import {useContext, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {CatalogsContext} from "src/catalogs.context";
 import {emitter} from "src/utils/eventEmitter";
 import Image from "next/image";
 import Heart from "src/icons/Heart";
 import Search from "src/icons/Search";
 import User from "src/icons/User";
+import {debounce} from "src/utils/debounce";
 
 const MENU_LIST_TITLE = ["Appliances", "Services", "Support", "Promotions", "Blog", "Better living"];
 const BETTER_LIVING_LIST = [
@@ -69,28 +70,15 @@ export const Head = () => {
     const {catalogs} = useContext(CatalogsContext);
     const [count, setCount] = useState(0);
     const [hideSearchBar, setHideSearchBar] = useState(true);
-    const [inputValue, setInputValue] = useState("");
     const [productList, setProductList] = useState<SearchProduct[]>([]);
 
     const handleBlur = () => {
         setHideSearchBar(true);
-        setInputValue("");
     };
 
     const handleClickSearchBar = () => {
         setHideSearchBar(false);
     };
-
-    const handleChangeSearchBar = (event) => {
-        const newValue = event.target.value;
-
-        setInputValue(newValue);
-    };
-
-    useEffect(() => {
-        fetchProductList();
-        console.log(productList)
-    }, [inputValue]);
 
 
     const fetchCount = () => {
@@ -107,7 +95,10 @@ export const Head = () => {
             });
     };
 
-    const fetchProductList = () => {
+    const fetchProductList = (inputValue) => {
+        if (!inputValue) {
+            return
+        }
         fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/products/complete?productNameContains=${inputValue}`).then(res => {
             return res.json();
         }).then(data => {
@@ -116,6 +107,9 @@ export const Head = () => {
             setProductList(data);
         })
     }
+
+    const debounceSearch = useCallback(debounce(fetchProductList, true), [])
+
 
     const catalogsResult = catalogs.map(catalog => {
         const catalogIndex = FIRST_LEVEL_CATALOGS.findIndex(item => item.name === catalog.name);
@@ -269,9 +263,9 @@ export const Head = () => {
 
                     <div className={`${hideSearchBar ? 'hidden-search-bar' : 'display-search-bar'} search-bar`}>
                         <div className="input-area">
-                            <input type="text" value={inputValue} className="global-search-nav" placeholder="search..."
+                            <input type="text" className="global-search-nav" placeholder="search..."
                                    maxLength="100"
-                                   onBlur={handleBlur} onChange={handleChangeSearchBar}/>
+                                   onBlur={handleBlur} onChange={(e) => debounceSearch(e.target.value)}/>
                             <div className="view-all-search-icon click-disable">
                                 <Icon
                                     style={{
@@ -288,12 +282,15 @@ export const Head = () => {
                         </div>
                         {productList.length > 0 && <div className="search-tip-bar">
                             <div className="product-block">
-                                {`Buscar por "${inputValue}"`}
+                                {`PRODUCTS`}
                             </div>
                             {
                                 productList.map((item, index) => (
                                     <Link key={index} href={`/appliances/detail/${item.items[0].productId}`}
-                                          className="product-block" onClick={() => setHideSearchBar(true)}>
+                                          className="product-block" onClick={() => {
+                                        setHideSearchBar(true);
+                                        setProductList([]);
+                                    }}>
                                         <Image
                                             src={item.thumbUrl}
                                             alt={item.name}
