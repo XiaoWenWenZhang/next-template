@@ -71,9 +71,12 @@ export const Head = () => {
     const [count, setCount] = useState(0);
     const [hideSearchBar, setHideSearchBar] = useState(true);
     const [productList, setProductList] = useState<SearchProduct[]>([]);
+    const [inputValue, setInputValue] = useState("");
 
-    const handleBlur = () => {
+    const handleHideSearchBar = () => {
         setHideSearchBar(true);
+        setInputValue("");
+        setProductList([])
     };
 
     const handleClickSearchBar = () => {
@@ -263,9 +266,13 @@ export const Head = () => {
 
                     <div className={`${hideSearchBar ? 'hidden-search-bar' : 'display-search-bar'} search-bar`}>
                         <div className="input-area">
-                            <input type="text" className="global-search-nav" placeholder="search..."
+                            <input type="text" value={inputValue} className="global-search-nav" placeholder="search..."
                                    maxLength="100"
-                                   onBlur={handleBlur} onChange={(e) => debounceSearch(e.target.value)}/>
+                                   onBlur={handleHideSearchBar} onChange={(e) => {
+                                setInputValue(e.target.value)
+
+                                debounceSearch(e.target.value);
+                            }}/>
                             <div className="view-all-search-icon click-disable">
                                 <Icon
                                     style={{
@@ -287,10 +294,7 @@ export const Head = () => {
                             {
                                 productList.map((item, index) => (
                                     <Link key={index} href={`/appliances/detail/${item.items[0].productId}`}
-                                          className="product-block" onClick={() => {
-                                        setHideSearchBar(true);
-                                        setProductList([]);
-                                    }}>
+                                          className="product-block" onClick={handleHideSearchBar}>
                                         <Image
                                             src={item.thumbUrl}
                                             alt={item.name}
