@@ -20,8 +20,9 @@ export default async function Page({params}: { params: { slug: string } }) {
             return error;
         });
 
-    const initCardItemQuantity= [{id: productDetail.skus[0].sku.toString(), quantity: 1}];
-    const cardItem: ICartProductSkus= {id: productDetail.skus[0].sku.toString(), quantity: 1,
+    const initCardItemQuantity = [{id: productDetail.skus[0].sku.toString(), quantity: 1}];
+    const cardItem: ICartProductSkus = {
+        id: productDetail.skus[0].sku.toString(), quantity: 1,
         price: 0,
         imageUrl: '',
         name: '',
@@ -42,7 +43,11 @@ export default async function Page({params}: { params: { slug: string } }) {
                 />
             </div>
             <div style={{width: '50%', padding: '100px 100px 50px 100px'}}>
-                <div style={{paddingBottom: '15px', fontWeight: 700, fontSize: '30px'}}>{productDetail.name}{currentProductSkus.sku}</div>
+                <div style={{
+                    paddingBottom: '15px',
+                    fontWeight: 700,
+                    fontSize: '30px'
+                }}>{productDetail.name}{currentProductSkus.sku}</div>
 
                 <div style={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
                     <div style={{
@@ -61,7 +66,7 @@ export default async function Page({params}: { params: { slug: string } }) {
                     display: 'flex', flexDirection: 'row',
                 }}>
                     {
-                        productDetail.skus.map(item =>(
+                        productDetail.skus.map(item => (
                             <div
                                 key={item.sku}
                                 onClick={() => {
@@ -91,7 +96,7 @@ export default async function Page({params}: { params: { slug: string } }) {
                     <ProductQuantitySelector initCardItemQuantity={initCardItemQuantity} cartItem={cardItem}/>
                 </div>
 
-                <AddToCart item={productDetail} />
+                <AddToCart item={productDetail}/>
 
             </div>
 

@@ -239,7 +239,7 @@ export const Head = () => {
                                 {catalog.hasChildren
                                     ? catalog.children.map((secondCatalog) => (
                                         <div key={secondCatalog.id} className="submenu-navigation__group-item">
-                                            <Link href={`/appliances/${catalog.alias}`} className="link">
+                                            <Link href={`/appliances/${secondCatalog.name}`} className="link">
                                                 {secondCatalog.name}
                                             </Link>
                                         </div>
