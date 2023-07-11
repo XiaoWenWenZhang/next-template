@@ -76,7 +76,6 @@ export const Head = () => {
     const handleHideSearchBar = () => {
         setHideSearchBar(true);
         setInputValue("");
-        setProductList([])
     };
 
     const handleClickSearchBar = () => {
