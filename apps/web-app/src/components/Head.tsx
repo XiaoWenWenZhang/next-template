@@ -104,9 +104,7 @@ export const Head = () => {
         fetch(`https://twworkspace--vtexsgdemostore.myvtex.com/_v/products/complete?productNameContains=${inputValue}`).then(res => {
             return res.json();
         }).then(data => {
-            data.shift();
-            console.log(data)
-            setProductList(data);
+            setProductList(data.filter(item => item.items.length > 0));
         })
     }
 
