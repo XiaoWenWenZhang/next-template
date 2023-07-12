@@ -12,6 +12,7 @@ import Heart from "src/icons/Heart";
 import Search from "src/icons/Search";
 import User from "src/icons/User";
 import {debounce} from "src/utils/debounce";
+import {useRouter} from "next/navigation";
 
 const MENU_LIST_TITLE = ["Appliances", "Services", "Support", "Promotions", "Blog", "Better living"];
 const BETTER_LIVING_LIST = [
@@ -72,8 +73,15 @@ export const Head = () => {
     const [hideSearchBar, setHideSearchBar] = useState(true);
     const [productList, setProductList] = useState<SearchProduct[]>([]);
     const [inputValue, setInputValue] = useState("");
+    const router = useRouter();
 
-    const handleHideSearchBar = () => {
+    const handleHideSearchBar = (path: string) => {
+        setHideSearchBar(true);
+        setInputValue("");
+        router.push(path);
+    };
+
+    const handleHideSearchBarBlur = () => {
         setHideSearchBar(true);
         setInputValue("");
     };
@@ -265,7 +273,7 @@ export const Head = () => {
                         <div className="input-area">
                             <input type="text" value={inputValue} className="global-search-nav" placeholder="search..."
                                    maxLength="100"
-                                   onBlur={handleHideSearchBar} onChange={(e) => {
+                                   onBlur={handleHideSearchBarBlur} onChange={(e) => {
                                 setInputValue(e.target.value)
 
                                 debounceSearch(e.target.value);
@@ -291,7 +299,7 @@ export const Head = () => {
                             {
                                 productList.map((item, index) => (
                                     <Link key={index} href={`/appliances/detail/${item.items[0].productId}`}
-                                          className="product-block" onClick={handleHideSearchBar}>
+                                          className="product-block" onMouseDown={() => handleHideSearchBar(`/appliances/detail/${item.items[0].productId}`)}>
                                         <Image
                                             src={item.thumbUrl}
                                             alt={item.name}
