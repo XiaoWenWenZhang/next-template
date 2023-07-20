@@ -183,7 +183,8 @@ export const Head = () => {
                         ></em>
                         Product Registration
                     </div>
-                    <div style={{marginLeft: "30px"}}>
+                    <Link href={"/where-to-buy"} style={{marginLeft: "30px"}}
+                    >
                         <em
                             style={{
                                 display: "inline-block",
@@ -196,7 +197,7 @@ export const Head = () => {
                             }}
                         ></em>
                         Where To Buy
-                    </div>
+                    </Link>
                 </div>
                 <div className="main-navigation">
                     <div className="navigation-logo">
