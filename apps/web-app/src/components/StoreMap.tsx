@@ -28,5 +28,5 @@ export default function StoreMap() {
             map.setTarget(null);
         };
     }, []);
-    return  <div id="map" style={{ width: '100%', height: '600px' }}></div>;
+    return  <div id="map" style={{ width: '100%', height: '680px' }}></div>;
 }

@@ -2,10 +2,11 @@
 
 import * as React from 'react';
 import "../styles/BasicCard.scss";
-import {Box, Tab, Tabs} from "@mui/material";
+import {Autocomplete, Box, InputAdornment, Tab, Tabs, TextField} from "@mui/material";
 import StoreMap from "src/components/StoreMap";
 import {Icon} from "@faststore/ui";
 import Search from "src/icons/Search";
+import {useEffect, useState} from "react";
 
 export enum WHERE_TO_BUY_TAB {
     OFFLINE_STORES= 'offlineStores',
@@ -53,6 +54,10 @@ const maintenanceServiceCentersCard = <>
     </div></>
 
 const OfflineStoresCard = ({locationNameAddress}) => {
+        const [searchValue, setSearchValue] = useState(undefined);
+        useEffect(() => {
+            console.log(searchValue)
+        }, [searchValue])
         return (
             <div style={{display: 'flex'}}>
                 <div style={{width: '40%'}}>
@@ -60,30 +65,28 @@ const OfflineStoresCard = ({locationNameAddress}) => {
                         color: '#011e41',
 
                     }}>Store locator</div>
-                    <div className="input-area" style={{                borderTop: "1px solid rgba(223,231,234,2)",
-                        borderBottom: "1px solid rgba(223,231,234,2)",
-                    }}>
-                        <input type="text"  className="global-search-nav" placeholder="Bueng Sam Phan District"
-                               maxLength="100"
-                        />
-                        <div className="view-all-search-icon click-disable">
-                            <Icon
-                                style={{
-                                    width: "25px",
-                                    height: "25px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    color: "#011e41",
-                                    marginLeft: "10px",
-                                }}
-                                component={<Search/>}
-                            />
-                        </div>
-                    </div>
+
+                    <Autocomplete
+                        id="free-solo-demo"
+                        freeSolo
+                        options={locationNameAddress.map((option) => option.name)}
+                        renderInput={(params) =>
+                            <TextField {...params} label="Search by store name" variant="filled" />
+
+                    }
+
+                        value={searchValue}
+                        onChange={(event, newValue) => {
+                            setSearchValue(newValue);
+                        }}
+                    />
                     <div style={{fontSize: '16px', backgroundColor: '#dfe7ea',fontWeight: 600, padding: '15px 25px'}}>{locationNameAddress.length} Stores near you</div>
                     <div style={{height: '432px', overflow: 'scroll'}}>
                         {
-                            locationNameAddress.map(address => (
+
+                            locationNameAddress.filter(item => {
+                                return searchValue ? item.name === searchValue : item.name
+                            }).map(address => (
                                 <div key={address.name}
                                 style={{display: 'flex', flexDirection: 'row', alignItems: 'center',borderBottom: '1px solid #ccc', padding: '10px 15px'}}>
                                     <em
@@ -123,7 +126,7 @@ export const  WhereToBuy = ({
     };
     return (
         <div>
-            <div style={{display: 'flex', justifyContent: 'space-between', paddingLeft: '40px',
+            <div style={{display: 'flex', justifyContent: 'space-between', paddingLeft: '40px', marginBottom: '25px',
                 boxShadow: "15px 0 30px 0 rgba(0,0,0,0.1)"}}>
                 <div style={{display: 'flex', alignItems: 'center',
                     textTransform: 'uppercase', fontWeight: 600, fontSize: '18px'}}>WHERE TO BUY</div>
@@ -136,8 +139,8 @@ export const  WhereToBuy = ({
                         aria-label="secondary tabs example"
                         sx={{backgroundColor: '#dfe7ea', textTransform: 'capitalize'}}
                     >
-                        <Tab sx={{textTransform: 'capitalize'}} value={WHERE_TO_BUY_TAB.MAINTENANCE_SERVICE_CENTERS} label="Maintenance service centers" />
-                        <Tab sx={{textTransform: 'capitalize'}}  value={WHERE_TO_BUY_TAB.OFFLINE_STORES} label="Offline stores" />
+                        <Tab sx={{textTransform: 'capitalize', lineHeight: '40px', fontWeight: 500, color: '#011e41'}} value={WHERE_TO_BUY_TAB.MAINTENANCE_SERVICE_CENTERS} label="Maintenance service centers" />
+                        <Tab sx={{textTransform: 'capitalize', lineHeight: '40px', fontWeight: 500, color: '#011e41'}}  value={WHERE_TO_BUY_TAB.OFFLINE_STORES} label="Offline stores" />
                     </Tabs>
 
                 </Box>
