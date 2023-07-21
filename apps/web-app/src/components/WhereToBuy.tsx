@@ -3,6 +3,9 @@
 import * as React from 'react';
 import "../styles/BasicCard.scss";
 import {Box, Tab, Tabs} from "@mui/material";
+import StoreMap from "src/components/StoreMap";
+import {Icon} from "@faststore/ui";
+import Search from "src/icons/Search";
 
 export enum WHERE_TO_BUY_TAB {
     OFFLINE_STORES= 'offlineStores',
@@ -32,7 +35,7 @@ const serviceCenterConfig = [
     },
 ]
 
-const offlineStoresCard = <>
+const maintenanceServiceCentersCard = <>
     <div style={{margin: '25px auto', textAlign: 'center', fontSize: '40px', fontWeight: 600, color: '#011e41'}}>Find our service centers</div>
     <div style={{display: 'flex', flexDirection: 'row', margin: '0 40px', justifyContent: 'space-between'}}>
         {
@@ -48,7 +51,71 @@ const offlineStoresCard = <>
             ))
         }
     </div></>
-export default function WhereToBuy() {
+
+const OfflineStoresCard = ({locationNameAddress}) => {
+        return (
+            <div style={{display: 'flex'}}>
+                <div style={{width: '40%'}}>
+                    <div style={{padding: '25px', fontWeight: 600, fontSize: '36px',
+                        color: '#011e41',
+
+                    }}>Store locator</div>
+                    <div className="input-area" style={{                borderTop: "1px solid rgba(223,231,234,2)",
+                        borderBottom: "1px solid rgba(223,231,234,2)",
+                    }}>
+                        <input type="text"  className="global-search-nav" placeholder="Bueng Sam Phan District"
+                               maxLength="100"
+                        />
+                        <div className="view-all-search-icon click-disable">
+                            <Icon
+                                style={{
+                                    width: "25px",
+                                    height: "25px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    color: "#011e41",
+                                    marginLeft: "10px",
+                                }}
+                                component={<Search/>}
+                            />
+                        </div>
+                    </div>
+                    <div style={{fontSize: '16px', backgroundColor: '#dfe7ea',fontWeight: 600, padding: '15px 25px'}}>{locationNameAddress.length} Stores near you</div>
+                    <div style={{height: '432px', overflow: 'scroll'}}>
+                        {
+                            locationNameAddress.map(address => (
+                                <div key={address.name}
+                                style={{display: 'flex', flexDirection: 'row', alignItems: 'center',borderBottom: '1px solid #ccc', padding: '10px 15px'}}>
+                                    <em
+                                        style={{
+                                            display: "inline-block",
+                                            width: "45px",
+                                            height: "40px",
+                                            marginRight: "10px",
+                                            verticalAlign: "bottom",
+                                            background:
+                                                "url('https://www.electrolux.co.th/Static/css/themes/default/icons/marker.svg') no-repeat center",
+                                        }}
+                                    ></em>
+                                    <div
+                                         >
+                                        <div style={{lineHeight: '18px', fontSize: '18px',fontWeight: 600, marginBottom: '10px'}}>{address.name}</div>
+                                        <div style={{lineHeight: '18px', fontSize: '14px'}}>{address.location}</div>
+                                    </div>
+                                </div>
+
+                            ))
+                        }
+                    </div>
+                </div>
+                <StoreMap />
+            </div>
+        )
+}
+
+export const  WhereToBuy = ({
+                                locationNameAddress
+                            }) => {
     const [value, setValue] = React.useState(WHERE_TO_BUY_TAB.OFFLINE_STORES);
 
     const handleChange = (event: React.SyntheticEvent, newValue: WHERE_TO_BUY_TAB) => {
@@ -65,7 +132,6 @@ export default function WhereToBuy() {
                     <Tabs
                         value={value}
                         onChange={handleChange}
-                        textColor="#11e41'"
                         indicatorColor="primary"
                         aria-label="secondary tabs example"
                         sx={{backgroundColor: '#dfe7ea', textTransform: 'capitalize'}}
@@ -76,7 +142,8 @@ export default function WhereToBuy() {
 
                 </Box>
             </div>
-            {value === WHERE_TO_BUY_TAB.MAINTENANCE_SERVICE_CENTERS && offlineStoresCard}
+            {value === WHERE_TO_BUY_TAB.MAINTENANCE_SERVICE_CENTERS ? maintenanceServiceCentersCard :
+                <OfflineStoresCard locationNameAddress={locationNameAddress}/>}
         </div>
     );
 }
