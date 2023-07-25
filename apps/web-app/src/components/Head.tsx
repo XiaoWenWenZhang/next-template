@@ -215,7 +215,9 @@ export const Head = () => {
                                 .toLowerCase()
                                 .replace(" ", "-")}`}
                         >
-                            {menuItem}
+                            {
+                                menuItem === 'Promotions' ? <Link href={'/promotions'}>Promotions</Link> : menuItem
+                            }
                         </div>
                     ))}
                     <Icon className="navigation-icon" component={<Search/>} onClick={handleClickSearchBar}/>
