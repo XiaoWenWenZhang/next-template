@@ -22,8 +22,8 @@ export default async function Page() {
         <div >
             <div className="body-container"><CardPromotion/></div>
             <div style={{position: 'relative'}}>
-                <div style={{height: '500px'}}>
-                    <img src="https://www.electrolux.co.th/contentassets/01324ffe07324eb89b7e5234346e68f9/promotion-banner-desktop-1900x500.jpg?preset=xlarge"
+                <div >
+                    <img style={{height: '400px'}} src="https://www.electrolux.co.th/contentassets/01324ffe07324eb89b7e5234346e68f9/promotion-banner-desktop-1900x500.jpg?preset=xlarge"
                          alt="promotion banner" />
                 </div>
                 <div style={{position: 'absolute', left: '5%', top: '40%',
@@ -35,22 +35,25 @@ export default async function Page() {
                 {
                     promotionsList.map(promotion => (
                         <div style={{padding: '0 15px', width: '360px'}}>
-                            <div style={{cursor: 'pointer'}}>
+                            <Link style={{cursor: 'pointer'}}
+                                  href={`/promotions/detail/${promotion?.idCalculatorConfiguration}`}>
                                 <img src="https://www.electrolux.co.th/contentassets/4a465116e1224b25819d1f5ac24228a5/doubleclean-464x261-updateden.jpg?preset=medium" alt="img"/>
-                            </div>
+                            </Link>
                             <div style={{height: '140px'}}>
-                                <a href="">
-                                    <div  style={{fontSize: '32px', fontWeight: 600, cursor: 'pointer'}} key={promotion.name}>
+                                <Link href={`/promotions/detail/${promotion?.idCalculatorConfiguration}`}>
+                                    <div style={{fontSize: '32px', fontWeight: 600, cursor: 'pointer'}} key={promotion.name}>
                                         {promotion.name}
                                     </div>
-                                </a>
+                                </Link>
                                 <div>Event period:{dayjs(promotion?.beginDate).format('DD/MM/YYYY')} - {dayjs(promotion?.endDate).format('DD/MM/YYYY')}</div>
 
                             </div>
                             <div style={{cursor: 'pointer'}}>
-                                <a style={{padding: '8px 10px',  border: '1px solid transparent', borderRadius: '2px',
+                                <Link
+                                    href={`/promotions/detail/${promotion?.idCalculatorConfiguration}`}
+                                    style={{padding: '8px 10px',  border: '1px solid transparent', borderRadius: '2px',
                                     fontSize: '14px', fontWeight: 600,
-                                    backgroundColor:'rgba(1,30,65,.92)', color: '#dfe7ea'}}>VIEW DETAILS</a>
+                                    backgroundColor:'rgba(1,30,65,.92)', color: '#dfe7ea'}}>VIEW DETAILS</Link>
                             </div>
                         </div>
 
