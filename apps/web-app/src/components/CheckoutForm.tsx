@@ -215,8 +215,6 @@ export const CheckoutForm = () => {
                 postalCode, complement, neighborhood, street, city, number
             } = deliveryAddress
             const displayAddress = [postalCode, complement, neighborhood, street, city, number].join(', ')
-            console.log("displayAddress", displayAddress)
-            console.log(data)
             setAddress(displayAddress)
         }).catch(err => {
             console.log(111, err)

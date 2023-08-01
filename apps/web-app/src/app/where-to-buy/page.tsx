@@ -8,23 +8,20 @@ export default async function Page() {
     const requestInit = {
         method: 'GET',
         headers: {
-            'X-VTEX-API-AppKey': 'vtexappkey-vtexsgdemostore-ODAXOP',
-            'X-VTEX-API-AppToken': 'IRIUHZSYLRPUFXWGLZAODTZTOICMVFPWDTCGKJJQPKXQMYQXZDJIFRRQOMEURRFKYNTNZIEIZDZPKUHACZJGMODPCOUWYWSRGXCOKXYSLZXULWLJBUQDXMPUZKISMDBE'
+            'X-VTEX-API-AppKey': process.env.X_VTEX_API_AppKey,
+            'X-VTEX-API-AppToken': process.env.X_VTEX_API_AppToken
         }
     }
     const locationListRes = await fetch(targetPath, requestInit)
 
     const locationList = await locationListRes.json();
-    console.log('locationList', locationListRes.json())
 
-    // const locationNameList = locationList.map(item => item.name)
     const locationNameAddress = locationList.map(item => ({
         name: item.name,
+        latitude: item.address.location.latitude,
+        longitude: item.address.location.longitude,
         location: `${item.address?.number ? item.address?.number + ' ': ''}${item.address?.street} ${item.address?.neighborhood} ${item.address?.state} ${item.address?.city} ${item.address?.country?.name} ${item.address?.postalCode}`
     }))
-    // console.log('locationList', locationList)
-    // console.log('locationNameList',locationNameList)
-    console.log('locationNameAddress',locationNameAddress)
     return (
         <div >
             <div className="body-container"><CardPromotion/></div>

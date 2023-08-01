@@ -9,8 +9,8 @@ export default async function Page() {
     const requestInit = {
         method: 'GET',
         headers: {
-            'X-VTEX-API-AppKey': 'vtexappkey-vtexsgdemostore-WDWTEM',
-            'X-VTEX-API-AppToken': 'NSISRSOBPCPHVUKKFHJXEUXBPFQHXRNVXARJZLVJJJGPEWEJSVGIIYLDLQVRSDBDXRMKREBTQMFXABTVGYXANVDFDHXUCWNOSBIVLXIQUXEMYLUNPXMPHEWNIOPZLKTO'
+            'X-VTEX-API-AppKey': process.env.X_VTEX_API_APPKEY_PRODUCT,
+            'X-VTEX-API-AppToken': process.env.X_VTEX_API_APPTOKEN_PRODUCT
         }
     }
     const promotionsListRes = await fetch(targetPath, requestInit)
@@ -23,7 +23,7 @@ export default async function Page() {
             <div className="body-container"><CardPromotion/></div>
             <div style={{position: 'relative'}}>
                 <div >
-                    <img style={{height: '400px'}} src="https://www.electrolux.co.th/contentassets/01324ffe07324eb89b7e5234346e68f9/promotion-banner-desktop-1900x500.jpg?preset=xlarge"
+                    <img style={{height: '400px', width: '100%' }} src="https://www.electrolux.co.th/contentassets/01324ffe07324eb89b7e5234346e68f9/promotion-banner-desktop-1900x500.jpg?preset=xlarge"
                          alt="promotion banner" />
                 </div>
                 <div style={{position: 'absolute', left: '5%', top: '40%',

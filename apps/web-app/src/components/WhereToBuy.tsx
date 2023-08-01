@@ -3,10 +3,11 @@
 import * as React from 'react';
 import "../styles/BasicCard.scss";
 import {Autocomplete, Box, InputAdornment, Tab, Tabs, TextField} from "@mui/material";
-import StoreMap from "src/components/StoreMap";
 import {Icon} from "@faststore/ui";
 import Search from "src/icons/Search";
 import {useEffect, useState} from "react";
+import {StoreMap} from "src/components/StoreMap";
+import {calculateDistance} from "src/utils/calculateDistance";
 
 export enum WHERE_TO_BUY_TAB {
     OFFLINE_STORES= 'offlineStores',
@@ -55,9 +56,8 @@ const maintenanceServiceCentersCard = <>
 
 const OfflineStoresCard = ({locationNameAddress}) => {
         const [searchValue, setSearchValue] = useState(undefined);
-        useEffect(() => {
-            console.log(searchValue)
-        }, [searchValue])
+        const [currentLocation, setCurrentLocation] = useState<{ latitude: string, longitude: string }>(undefined);
+
         return (
             <div style={{display: 'flex'}}>
                 <div style={{width: '40%'}}>
@@ -89,17 +89,22 @@ const OfflineStoresCard = ({locationNameAddress}) => {
                             }).map(address => (
                                 <div key={address.name}
                                 style={{display: 'flex', flexDirection: 'row', alignItems: 'center',borderBottom: '1px solid #ccc', padding: '10px 15px'}}>
-                                    <em
-                                        style={{
-                                            display: "inline-block",
-                                            width: "45px",
-                                            height: "40px",
-                                            marginRight: "10px",
-                                            verticalAlign: "bottom",
-                                            background:
-                                                "url('https://www.electrolux.co.th/Static/css/themes/default/icons/marker.svg') no-repeat center",
-                                        }}
-                                    ></em>
+                                    <div>
+                                        <em
+                                            style={{
+                                                display: "inline-block",
+                                                width: "45px",
+                                                height: "40px",
+                                                marginRight: "10px",
+                                                verticalAlign: "bottom",
+                                                background:
+                                                    "url('https://www.electrolux.co.th/Static/css/themes/default/icons/marker.svg') no-repeat center",
+                                            }}
+                                        ></em>
+                                        <div style={{textAlign: 'center'}}>
+                                            {calculateDistance(currentLocation?.latitude, currentLocation?.longitude, address?.latitude, address?.longitude) || 0}km
+                                        </div>
+                                    </div>
                                     <div
                                          >
                                         <div style={{lineHeight: '18px', fontSize: '18px',fontWeight: 600, marginBottom: '10px'}}>{address.name}</div>
@@ -111,7 +116,8 @@ const OfflineStoresCard = ({locationNameAddress}) => {
                         }
                     </div>
                 </div>
-                <StoreMap />
+                <StoreMap latitude1={locationNameAddress[0].latitude} longitude1={locationNameAddress[0].longitude}
+                          onCurrentDisplay={({ latitude, longitude }) => setCurrentLocation({latitude, longitude})}/>
             </div>
         )
 }
